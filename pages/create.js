@@ -1,10 +1,16 @@
 import Layout from "../components/Layout";
+import SpinWheel from "../components/SpinWheel";
 
 const Create = () => {
   return (
     <Layout>
-      <div className="container">
-        <h1 className="text-3xl font-bold ">Create a wheel</h1>
+      <div className="container my-5 flex justify-around">
+        <div>
+          <SpinWheel />
+        </div>
+        <div>
+          <h1>These are the inputs</h1>
+        </div>
       </div>
     </Layout>
   );
