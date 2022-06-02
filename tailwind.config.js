@@ -3,8 +3,8 @@ module.exports = {
   theme: {
     container: {
       center: true,
+      padding: "0.75rem",
     },
-    extend: {},
   },
   plugins: [],
 };
