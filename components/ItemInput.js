@@ -17,15 +17,16 @@ const ItemInput = (props) => {
   };
 
   return (
-    <div>
+    <div className="flex">
       <input
         onKeyDown={(e) => handleKeyDown(e, props)}
         onChange={(e) => setItemInputValue(e.target.value)}
         value={itemInputValue}
+        placeholder="Add Item"
         className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
         type="text"
       />
-      <button onClick={() => handleClick(props)} className="mx-3 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+      <button onClick={() => handleClick(props)} className="mx-3 whitespace-nowrap rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
         Add Item
       </button>
     </div>

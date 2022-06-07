@@ -12,6 +12,7 @@ const SpinWheel = (props) => {
       (theWheel = new Winwheel({
         canvasId: "wheel",
         responsive: true,
+        pointerAngle: 90,
         numSegments: 4,
         textFontSize: 28,
         strokeStyle: "#ffffff",
@@ -36,7 +37,7 @@ const SpinWheel = (props) => {
           theWheel.startAnimation();
         }}
         id="wheel"
-        className="w-96 cursor-pointer md:w-[500] xl:w-[520px]"
+        className="mt-5 w-96 cursor-pointer md:w-[500] xl:w-[520px]"
         width="520"
         height="520"
       ></canvas>
