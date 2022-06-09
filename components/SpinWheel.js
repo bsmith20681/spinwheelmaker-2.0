@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import Winwheel from "../dependencies/winwheel";
 import useScript from "../hooks/useScript";
+import spinWheelBackground from "../public/images/wheel_01.png";
 
-const SpinWheel = (props) => {
+const SpinWheel = ({ segments }) => {
   useScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js");
   useScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js");
   let [theWheel, setTheWheel] = useState();
@@ -16,7 +17,7 @@ const SpinWheel = (props) => {
         numSegments: 4,
         textFontSize: 28,
         strokeStyle: "#ffffff",
-        segments: props.segments,
+        segments: segments,
         animation: {
           type: "spinToStop",
           duration: 5,
@@ -36,8 +37,9 @@ const SpinWheel = (props) => {
         onClick={() => {
           theWheel.startAnimation();
         }}
+        style={{ backgroundImage: `url(${spinWheelBackground.src})` }}
         id="wheel"
-        className="mt-5 w-96 cursor-pointer md:w-[500] xl:w-[520px]"
+        className="mt-5 w-96 cursor-pointer bg-cover bg-center p-7 md:w-[500] xl:w-[520px]"
         width="520"
         height="520"
       ></canvas>
