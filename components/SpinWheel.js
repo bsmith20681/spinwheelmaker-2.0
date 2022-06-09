@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Winwheel from "../dependencies/winwheel";
 import useScript from "../hooks/useScript";
 import spinWheelBackground from "../public/images/wheel_01.png";
@@ -10,13 +10,13 @@ const SpinWheel = ({ segments }) => {
 
   useEffect(() => {
     setTheWheel(
-      (theWheel = new Winwheel({
+      new Winwheel({
         canvasId: "wheel",
         responsive: true,
         pointerAngle: 90,
-        numSegments: 4,
+        numSegments: segments.length,
         textFontSize: 28,
-        strokeStyle: "#ffffff",
+        strokeStyle: "black",
         segments: segments,
         animation: {
           type: "spinToStop",
@@ -28,9 +28,9 @@ const SpinWheel = ({ segments }) => {
           callBackAfter: "drawTriangle()",
           //callbackSound: playSound,
         },
-      }))
+      })
     );
-  }, []);
+  }, [segments]);
   return (
     <div>
       <canvas

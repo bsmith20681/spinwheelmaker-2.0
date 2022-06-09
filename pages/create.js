@@ -11,7 +11,6 @@ const Create = () => {
     { fillStyle: "#eae56f", text: "Prize One" },
     { fillStyle: "#89f26e", text: "Prize Two" },
     { fillStyle: "#7de6ef", text: "Prize Three" },
-    { fillStyle: "#e7706f", text: "Prize Four" },
   ]);
 
   return (
@@ -27,7 +26,6 @@ const Create = () => {
         <div className="container my-5 grid grid-cols-2 gap-40">
           <div className="flex justify-center rounded-md border-2 border-gray-300 bg-white p-5">
             <SpinWheel segments={segments} />
-            {console.log(segments)}
           </div>
           <div className=" rounded-md border-2 border-gray-300 bg-white p-5">
             <ItemContainer segments={segments} updateSegments={(value) => setSegments((segments) => [...segments, value])} />
