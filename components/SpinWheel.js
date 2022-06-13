@@ -16,7 +16,7 @@ const SpinWheel = ({ segments }) => {
         pointerAngle: 90,
         numSegments: segments.length,
         textFontSize: 28,
-        strokeStyle: "black",
+        strokeStyle: "white",
         segments: segments,
         animation: {
           type: "spinToStop",
