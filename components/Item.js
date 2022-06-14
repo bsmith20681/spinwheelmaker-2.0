@@ -1,7 +1,8 @@
-const Item = (props) => {
+const Item = ({ wheelSettings }) => {
+  console.log(wheelSettings);
   return (
     <div>
-      {props.segments.map((item, index) => {
+      {wheelSettings.segments.map((item, index) => {
         return (
           <div key={item.text + index}>
             <p>{item.text}</p>

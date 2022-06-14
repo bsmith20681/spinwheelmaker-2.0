@@ -5,7 +5,7 @@ const ItemInput = (props) => {
 
   const handleClick = (e) => {
     if (itemInputValue !== "") {
-      e.updateSegments({ fillStyle: "#7de6ef", text: itemInputValue });
+      e.updateWheelSettings({ fillStyle: "#7de6ef", text: itemInputValue });
       setItemInputValue("");
     }
   };

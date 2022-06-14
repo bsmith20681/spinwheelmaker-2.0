@@ -3,7 +3,7 @@ import Winwheel from "../dependencies/winwheel";
 import useScript from "../hooks/useScript";
 import spinWheelBackground from "../public/images/wheel_01.png";
 
-const SpinWheel = ({ segments }) => {
+const SpinWheel = ({ wheelSettings }) => {
   useScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js");
   useScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js");
   let [theWheel, setTheWheel] = useState();
@@ -14,14 +14,14 @@ const SpinWheel = ({ segments }) => {
         canvasId: "wheel",
         responsive: true,
         pointerAngle: 90,
-        numSegments: segments.length,
+        numSegments: wheelSettings.segments.length,
         textFontSize: 28,
         strokeStyle: "white",
-        segments: segments,
+        segments: wheelSettings.segments,
         animation: {
           type: "spinToStop",
-          duration: 5,
-          spins: 8,
+          duration: wheelSettings.spinDuration,
+          spins: wheelSettings.numOfSpins,
           callbackFinished: (indicatedSegment) => {
             console.log(indicatedSegment);
           },
@@ -30,7 +30,7 @@ const SpinWheel = ({ segments }) => {
         },
       })
     );
-  }, [segments]);
+  }, [wheelSettings]);
   return (
     <div>
       <canvas

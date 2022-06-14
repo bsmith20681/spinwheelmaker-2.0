@@ -1,11 +1,11 @@
 import Item from "./Item";
 import ItemInput from "./ItemInput";
 
-const ItemContainer = (props) => {
+const ItemContainer = ({ updateWheelSettings, wheelSettings }) => {
   return (
     <div>
-      <ItemInput updateSegments={props.updateSegments} />
-      <Item segments={props.segments} />
+      <ItemInput updateWheelSettings={updateWheelSettings} />
+      <Item wheelSettings={wheelSettings} />
     </div>
   );
 };
