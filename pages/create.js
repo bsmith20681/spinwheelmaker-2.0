@@ -58,11 +58,9 @@ const Create = () => {
         <SubHeaderItem icon={faBars} />
       </div>
       <div className="bg-gray-100 py-10">
-        <div className="container my-5 grid grid-cols-2 gap-40">
+        <div className="container my-5 grid grid-cols-1 gap-20 md:grid-cols-2">
           <FullScreen handle={handle}>
-            <div className="flex h-full items-center justify-center rounded-md border-2 border-gray-300 bg-white p-5">
-              <SpinWheel wheelSettings={wheelSettings} />
-            </div>
+            <SpinWheel wheelSettings={wheelSettings} />
           </FullScreen>
           <div className=" rounded-md border-2 border-gray-300 bg-white p-5">
             <ItemContainer

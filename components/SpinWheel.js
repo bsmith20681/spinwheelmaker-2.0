@@ -14,6 +14,7 @@ const SpinWheel = ({ wheelSettings }) => {
         canvasId: "wheel",
         responsive: true,
         pointerAngle: 90,
+
         numSegments: wheelSettings.segments.length,
         textFontSize: 28,
         strokeStyle: "white",
@@ -32,16 +33,16 @@ const SpinWheel = ({ wheelSettings }) => {
     );
   }, [wheelSettings]);
   return (
-    <div>
+    <div className="flex h-full items-center justify-center rounded-md border-2 border-gray-300 bg-white p-5">
       <canvas
         onClick={() => {
           theWheel.startAnimation();
         }}
         style={{ backgroundImage: `url(${spinWheelBackground.src})` }}
         id="wheel"
-        className="mt-5 w-96 cursor-pointer bg-cover bg-center p-7 md:w-[500] xl:w-[520px]"
-        width="520"
-        height="520"
+        className="w-full max-w-5xl cursor-pointer bg-cover bg-center p-9 "
+        width="600"
+        height="600"
       ></canvas>
     </div>
   );
