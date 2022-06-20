@@ -8,6 +8,7 @@ import RaffleIcon from "../public/images/raffle-wheel.png";
 import MysteryIcon from "../public/images/mystery-wheel.png";
 import RandomNumberIcon from "../public/images/random-number-wheel.png";
 import GiveAwayIcon from "../public/images/giveaway-picker.png";
+import PlaceHolder from "../public/images/placeholder.png";
 
 export default function Home() {
   return (
@@ -38,7 +39,7 @@ export default function Home() {
           <h2 className="my-6 text-center text-5xl font-black">Randomly pick names for any occasion</h2>
           <p className="my-6 text-center text-2xl font-normal text-gray-800">You can easily create any type of wheel you want for any occasion</p>
         </div>
-        <div class="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-3">
           <div className="rounded border-2 bg-gray-100 py-8 px-6">
             <div className="flex justify-center">
               <Image src={PersonIcon} alt="person icon" />
@@ -86,6 +87,41 @@ export default function Home() {
             <h3 className="my-3 text-center text-2xl font-bold">Giveaway Picker</h3>
             <div className="h-1 border-b-2 border-gray-300"></div>
             <p className="my-3 text-center text-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.</p>
+          </div>
+        </div>
+      </div>
+      <div className="container my-12">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <h3 className="my-6 text-5xl font-black">Customize your Wheel</h3>
+            <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, </p>
+          </div>
+          <div>
+            <Image src={PlaceHolder} alt="screenshot" />
+          </div>
+        </div>
+      </div>
+      <div className="bg-blue-700">
+        <div className="container py-12">
+          <div className="grid gap-10 md:grid-cols-2">
+            <div>
+              <Image src={PlaceHolder} alt="screenshot" />
+            </div>
+            <div>
+              <h3 className="my-6 text-5xl font-black text-white">Save Your Wheel for Later</h3>
+              <p className="text-white">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container my-12">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <h3 className="my-6 text-5xl font-black">Share it with everyone</h3>
+            <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, </p>
+          </div>
+          <div>
+            <Image src={PlaceHolder} alt="screenshot" />
           </div>
         </div>
       </div>
