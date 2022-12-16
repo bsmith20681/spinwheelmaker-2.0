@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import saveForLater from "../public/images/save-for-later.png";
+import Inputs from "../public/images/inputs.png";
 import shareWithEveryone from "../public/images/share-with-everyone.png";
 import customizeWheel from "../public/images/customize-wheel.png";
 import SpinWheelImage from "../public/images/spinwheel-home-2.png";
@@ -11,35 +12,30 @@ import MysteryIcon from "../public/images/mystery.png";
 import RandomNumberIcon from "../public/images/number.png";
 import GiveAwayIcon from "../public/images/giveaway.png";
 import RandomNamePicker from "../public/images/name.png";
+import TryItOut from "../public/images/try-it-out.png";
+
 import { Disclosure } from "@headlessui/react";
 
 export default function Home() {
   return (
     <Layout>
-      <div className="container my-12 grid grid-cols-1 gap-2 md:grid-cols-2">
+      <div className="container relative my-12 grid grid-cols-1 gap-2 md:grid-cols-2">
         <div className="flex flex-col justify-center">
           <p className="text-center text-2xl font-bold">What to Eat for Lunch?</p>
-          <Image className="max-w-lg" src={SpinWheelImage} alt="spin the wheel" />
+          <Image layout="responsive" src={SpinWheelImage} alt="spin the wheel" />
         </div>
+
         <div className="flex items-center">
-          <div>
-            <h1 className="text-center text-5xl font-black md:my-10 md:text-7xl">Free Spin the Wheel Generator</h1>
-            <p className="my-6 text-center text-lg font-light md:my-10">Randomly pick names by creating a spinner wheel</p>
-            <div className="flex md:my-6">
-              <Link href="/create">
-                <a className="mx-auto rounded-md bg-blue-600 py-3 px-6 text-center text-lg font-bold text-white transition hover:bg-blue-700">Create your Spin Wheels</a>
-              </Link>
-            </div>
-            <div className="my-6 flex">
-              <Link href="#">
-                <a className="mx-auto rounded-md border-2 bg-white py-3 px-6 text-center text-lg font-bold text-gray-600 transition hover:bg-gray-300">See Other Spin Wheels</a>
-              </Link>
-            </div>
+          <div className="relative">
+            <Image src={Inputs} alt="inputs for spin wheel" />
+            <a className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-md bg-blue-600 py-3 px-4 text-white" href="/create">
+              Edit Wheel
+            </a>
           </div>
         </div>
       </div>
-      <div className="container">
-        <div>
+      <div className="container flex justify-end ">
+        <div className="text-center">
           <h1 className="text-2xl font-bold text-neutral-800">Free Spin Wheel Generator</h1>
           <p className="text-sm text-gray-500">Randomly pick names by creating a spinner wheel</p>
         </div>
@@ -92,7 +88,7 @@ export default function Home() {
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
               <h3 className="my-6 text-3xl font-black text-neutral-800">Customize your Wheel</h3>
-              <p className="text-xl text-gray-500">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, </p>
+              <p className="text-xl text-gray-500">Easily customize your spin wheel by giving it a name, changing the order, and loading items in bulk! We make is as easy as possible to get you up and running in no time.</p>
             </div>
             <div>
               <Image src={customizeWheel} alt="screenshot" />
@@ -104,13 +100,13 @@ export default function Home() {
             </div>
             <div>
               <h3 className="my-6 text-3xl font-black text-neutral-800">Save Your Wheel for Later</h3>
-              <p className="text-xl text-gray-500">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, </p>
+              <p className="text-xl text-gray-500">Need to use your spin wheel for later? No worries. Save it for later when you create an account to use it at anytime again in the future for free.</p>
             </div>
           </div>
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
               <h3 className="my-6 text-3xl font-black text-neutral-800">Share it with everyone</h3>
-              <p className="text-xl text-gray-500">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, </p>
+              <p className="text-xl text-gray-500">If you have the perfect spin wheel ready, you can share it with all of your friends for them to see.</p>
             </div>
             <div>
               <Image src={shareWithEveryone} alt="screenshot" />
