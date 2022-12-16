@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
+
+import Logo from "../public/images/logo.png";
 
 const Header = () => {
   return (
@@ -6,7 +9,9 @@ const Header = () => {
       <div className="container my-3">
         <div className="flex justify-between py-3">
           <div>
-            <Link href="/">Logo</Link>
+            <Link href="/">
+              <Image src={Logo} alt="logo" />
+            </Link>
           </div>
           <div>
             <Link href="#">
