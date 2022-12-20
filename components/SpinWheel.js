@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Winwheel from "../dependencies/winwheel";
 import useScript from "../hooks/useScript";
-import spinWheelBackground from "../public/images/wheel_01.png";
 
 const SpinWheel = ({ wheelSettings }) => {
   useScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js");
@@ -33,16 +32,15 @@ const SpinWheel = ({ wheelSettings }) => {
     );
   }, [wheelSettings]);
   return (
-    <div className="flex h-full items-center justify-center rounded-md border-2 border-gray-300 bg-white p-5">
+    <div className="flex h-full items-center justify-center bg-white  p-5">
       <canvas
         onClick={() => {
           theWheel.startAnimation();
         }}
-        style={{ backgroundImage: `url(${spinWheelBackground.src})` }}
         id="wheel"
         className="w-full max-w-5xl cursor-pointer bg-cover bg-center p-9 "
-        width="600"
-        height="600"
+        width="700"
+        height="700"
       ></canvas>
     </div>
   );

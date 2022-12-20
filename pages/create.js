@@ -5,7 +5,10 @@ import SpinWheel from "../components/SpinWheel";
 import ItemContainer from "../components/ItemContainer";
 import SubHeaderItem from "../components/SubHeaderItem";
 
-import { faShareNodes, faExpand, faGear, faFloppyDisk, faBars } from "@fortawesome/free-solid-svg-icons";
+import SaveIcon from "../public/images/saveicon.png";
+import SettingsIcon from "../public/images/settingsIcon.png";
+import FullScreenIcon from "../public/images/fullScreenIcon.png";
+import ShareIcon from "../public/images/shareIcon.png";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
@@ -20,9 +23,9 @@ const Create = () => {
     spinDuration: 5,
     numOfSpins: 5,
     segments: [
-      { fillStyle: "#eae56f", text: "Prize One" },
-      { fillStyle: "#89f26e", text: "Prize Two" },
-      { fillStyle: "#7de6ef", text: "Prize Three" },
+      { fillStyle: "#52AA83", text: "Prize One" },
+      { fillStyle: "#D96B75", text: "Prize Two" },
+      { fillStyle: "#48B2C3", text: "Prize Three" },
     ],
   });
 
@@ -52,14 +55,14 @@ const Create = () => {
         </div>
       </Dialog>
       <div className="container my-3 flex justify-end">
-        <SubHeaderItem icon={faShareNodes} action="Share" />
-        <SubHeaderItem icon={faExpand} action="Full Screen" onClick={handle.enter} />
-        <SubHeaderItem icon={faGear} action="Settings" onClick={() => setIsOpen(true)} />
-        <SubHeaderItem icon={faFloppyDisk} action="Save" />
-        <SubHeaderItem icon={faBars} />
+        <SubHeaderItem icon={ShareIcon} action="Share" />
+        <SubHeaderItem icon={FullScreenIcon} action="Full Screen" onClick={handle.enter} />
+        <SubHeaderItem icon={SettingsIcon} action="Settings" onClick={() => setIsOpen(true)} />
+        <SubHeaderItem icon={SaveIcon} action="Save" />
       </div>
-      <div className="bg-gray-100 py-10">
-        <div className="container my-5 grid grid-cols-1 gap-20 md:grid-cols-2">
+      <div class="border-b border-gray-200"></div>
+      <div className="py-10">
+        <div className="container my-5 grid grid-cols-1 gap-40 md:grid-cols-2">
           <FullScreen handle={handle}>
             <SpinWheel wheelSettings={wheelSettings} />
           </FullScreen>

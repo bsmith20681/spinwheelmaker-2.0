@@ -139,6 +139,46 @@ export default function Home() {
               </div>
             )}
           </Disclosure>
+          <Disclosure>
+            {({ open }) => (
+              <div className={open ? "my-6 rounded-md border-2 border-blue-300 bg-blue-100 px-7 py-2" : "my-6 rounded-md border-2 border-gray-300 bg-gray-100 px-7 py-2"}>
+                <Disclosure.Button className={open ? "flex w-full justify-between font-medium text-blue-500" : "flex w-full justify-between font-medium "}>
+                  How Do I use SpinWheelMaker.com?
+                  {open ? <MinusCircleIcon className={open ? "w-6" : "w-6"} /> : <PlusCircleIcon className={open ? "w-6" : "w-6"} />}
+                </Disclosure.Button>
+                <Transition
+                  enter="transition duration-300 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-75 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                >
+                  <Disclosure.Panel className="mt-4 text-gray-500">Yes! You can purchase a license that you can share with your entire team.</Disclosure.Panel>
+                </Transition>
+              </div>
+            )}
+          </Disclosure>
+          <Disclosure>
+            {({ open }) => (
+              <div className={open ? "my-6 rounded-md border-2 border-blue-300 bg-blue-100 px-7 py-2" : "my-6 rounded-md border-2 border-gray-300 bg-gray-100 px-7 py-2"}>
+                <Disclosure.Button className={open ? "flex w-full justify-between font-medium text-blue-500" : "flex w-full justify-between font-medium "}>
+                  Can the spin wheel be rigged?
+                  {open ? <MinusCircleIcon className={open ? "w-6" : "w-6"} /> : <PlusCircleIcon className={open ? "w-6" : "w-6"} />}
+                </Disclosure.Button>
+                <Transition
+                  enter="transition duration-300 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-75 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                >
+                  <Disclosure.Panel className="mt-4 text-gray-500">Yes! You can purchase a license that you can share with your entire team.</Disclosure.Panel>
+                </Transition>
+              </div>
+            )}
+          </Disclosure>
         </div>
       </div>
     </Layout>

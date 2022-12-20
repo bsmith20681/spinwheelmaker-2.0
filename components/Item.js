@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import DotsIcon from "../public/images/dotsIcon.png";
 
 const Item = ({ wheelSettings }) => {
   const [ready, setReady] = useState(false);
@@ -22,9 +22,9 @@ const Item = ({ wheelSettings }) => {
                 <Draggable key={item.text} draggableId={item.text} index={index}>
                   {(provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="my-6 flex items-center">
+                      <Image src={DotsIcon} alt="dots" />
                       {console.log(provided)}
-                      <FontAwesomeIcon className="mr-4 text-gray-600 hover:cursor-move" icon={faBars} />
-                      <p>{item.text}</p>
+                      <p className="text-sm">{item.text}</p>
                     </div>
                   )}
                 </Draggable>
