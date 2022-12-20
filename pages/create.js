@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import Layout from "../components/Layout";
 import SpinWheel from "../components/SpinWheel";
 import ItemContainer from "../components/ItemContainer";
 import SubHeaderItem from "../components/SubHeaderItem";
+import Winwheel from "../dependencies/winwheel";
 
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
@@ -18,8 +19,9 @@ const Create = () => {
   const handle = useFullScreenHandle();
 
   let [isOpen, setIsOpen] = useState(false);
+  let [theWheel, setTheWheel] = useState();
 
-  const [wheelSettings, setWheelSettings] = useState({
+  let [wheelSettings, setWheelSettings] = useState({
     spinDuration: 5,
     numOfSpins: 5,
     segments: [
@@ -28,6 +30,31 @@ const Create = () => {
       { fillStyle: "#48B2C3", text: "Prize Three" },
     ],
   });
+
+  useEffect(() => {
+    setTheWheel(
+      new Winwheel({
+        canvasId: "wheel",
+        responsive: true,
+        pointerAngle: 90,
+
+        numSegments: wheelSettings.segments.length,
+        textFontSize: 28,
+        strokeStyle: "white",
+        segments: wheelSettings.segments,
+        animation: {
+          type: "spinToStop",
+          duration: wheelSettings.spinDuration,
+          spins: wheelSettings.numOfSpins,
+          callbackFinished: (indicatedSegment) => {
+            console.log(indicatedSegment);
+          },
+          callBackAfter: "drawTriangle()",
+          //callbackSound: playSound,
+        },
+      })
+    );
+  }, [wheelSettings]);
 
   return (
     <Layout>
@@ -64,10 +91,18 @@ const Create = () => {
       <div className="py-10">
         <div className="container my-5 grid grid-cols-1 gap-40 md:grid-cols-2">
           <FullScreen handle={handle}>
-            <SpinWheel wheelSettings={wheelSettings} />
+            <SpinWheel
+              wheelSettings={wheelSettings}
+              spinTheWheel={() => {
+                theWheel.startAnimation();
+              }}
+            />
           </FullScreen>
-          <div className=" rounded-md border-2 border-gray-300 bg-white p-5">
+          <div className="rounded-md bg-blue-50 p-5">
             <ItemContainer
+              spinTheWheel={() => {
+                theWheel.startAnimation();
+              }}
               wheelSettings={wheelSettings}
               updateWheelSettings={(value) =>
                 setWheelSettings((prevState) => ({
