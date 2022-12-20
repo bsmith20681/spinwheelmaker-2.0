@@ -56,6 +56,17 @@ const Create = () => {
     );
   }, [wheelSettings]);
 
+  const handleDragEnd = (result) => {
+    const items = Array.from(wheelSettings.segments);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setWheelSettings((prevState) => ({
+      ...prevState,
+      segments: items,
+    }));
+  };
+
   return (
     <Layout>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
@@ -103,6 +114,7 @@ const Create = () => {
               spinTheWheel={() => {
                 theWheel.startAnimation();
               }}
+              handleDragEnd={handleDragEnd}
               wheelSettings={wheelSettings}
               updateWheelSettings={(value) =>
                 setWheelSettings((prevState) => ({

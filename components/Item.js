@@ -4,17 +4,17 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DotsIcon from "../public/images/dotsIcon.png";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
-const Item = ({ wheelSettings }) => {
+const Item = ({ wheelSettings, handleDragEnd }) => {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
-  console.log(wheelSettings);
+  //console.log(wheelSettings);
 
   return (
-    <DragDropContext>
+    <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="items">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -27,7 +27,6 @@ const Item = ({ wheelSettings }) => {
                         <Image src={DotsIcon} alt="dots" />
                         <p>{item.text}</p>
                       </div>
-                      {console.log(provided)}
 
                       <XCircleIcon className="ml-3 w-7 py-1 text-red-600 hover:cursor-pointer" />
                     </div>
