@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DotsIcon from "../public/images/dotsIcon.png";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
-const Item = ({ wheelSettings, handleDragEnd }) => {
+const Item = ({ wheelSettings, handleDragEnd, handleDeleteItem }) => {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     if (process.browser) {
@@ -27,8 +27,7 @@ const Item = ({ wheelSettings, handleDragEnd }) => {
                         <Image src={DotsIcon} alt="dots" />
                         <p>{item.text}</p>
                       </div>
-
-                      <XCircleIcon className="ml-3 w-7 py-1 text-red-600 hover:cursor-pointer" />
+                      <XCircleIcon id={index} onClick={handleDeleteItem} className="ml-3 w-7 py-1 text-red-600 hover:cursor-pointer" />
                     </div>
                   )}
                 </Draggable>

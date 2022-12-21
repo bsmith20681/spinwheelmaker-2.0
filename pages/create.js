@@ -5,6 +5,7 @@ import SpinWheel from "../components/SpinWheel";
 import ItemContainer from "../components/ItemContainer";
 import SubHeaderItem from "../components/SubHeaderItem";
 import Winwheel from "../dependencies/winwheel";
+import { useId } from "react-id-generator";
 
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
@@ -25,9 +26,9 @@ const Create = () => {
     spinDuration: 5,
     numOfSpins: 5,
     segments: [
-      { fillStyle: "#52AA83", text: "Prize One" },
-      { fillStyle: "#D96B75", text: "Prize Two" },
-      { fillStyle: "#48B2C3", text: "Prize Three" },
+      { id: "0", fillStyle: "#52AA83", text: "Prize One" },
+      { id: "1", fillStyle: "#D96B75", text: "Prize Two" },
+      { id: "2", fillStyle: "#48B2C3", text: "Prize Three" },
     ],
   });
 
@@ -65,6 +66,32 @@ const Create = () => {
       ...prevState,
       segments: items,
     }));
+  };
+  console.log(wheelSettings);
+
+  const handleDeleteItem = (e) => {
+    const findItemToDelete = wheelSettings.segments.findIndex((object) => {
+      return object.id === e.currentTarget.id;
+    });
+
+    wheelSettings.segments.splice(findItemToDelete, 1);
+
+    console.log(wheelSettings.segments);
+
+    setWheelSettings((prevState) => ({
+      ...prevState,
+      segments: wheelSettings.segments,
+    }));
+
+    //setWheelSettings(wheelSettings.segments);
+
+    /*
+    setWheelSettings((prevState) => ({
+      ...prevState,
+      segments: [wheelSettings.segments],
+    }));
+
+    */
   };
 
   return (
@@ -114,6 +141,7 @@ const Create = () => {
               spinTheWheel={() => {
                 theWheel.startAnimation();
               }}
+              handleDeleteItem={handleDeleteItem}
               handleDragEnd={handleDragEnd}
               wheelSettings={wheelSettings}
               updateWheelSettings={(value) =>
