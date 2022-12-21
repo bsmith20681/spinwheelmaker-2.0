@@ -38,10 +38,10 @@ const Create = () => {
         canvasId: "wheel",
         responsive: true,
         pointerAngle: 90,
-
         numSegments: wheelSettings.segments.length,
         textFontSize: 28,
         strokeStyle: "white",
+        lineWidth: 3,
         segments: wheelSettings.segments,
         animation: {
           type: "spinToStop",
@@ -76,22 +76,10 @@ const Create = () => {
 
     wheelSettings.segments.splice(findItemToDelete, 1);
 
-    console.log(wheelSettings.segments);
-
     setWheelSettings((prevState) => ({
       ...prevState,
       segments: wheelSettings.segments,
     }));
-
-    //setWheelSettings(wheelSettings.segments);
-
-    /*
-    setWheelSettings((prevState) => ({
-      ...prevState,
-      segments: [wheelSettings.segments],
-    }));
-
-    */
   };
 
   return (
