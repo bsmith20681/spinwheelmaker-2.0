@@ -19,20 +19,28 @@ import { Dialog } from "@headlessui/react";
 const Create = () => {
   const handle = useFullScreenHandle();
 
-  let [isOpen, setIsOpen] = useState(false);
+  let [isOpen, setIsOpen] = useState({
+    settings: false,
+    winner: false,
+  });
   let [theWheel, setTheWheel] = useState();
+  let [theWinner, setTheWinner] = useState("");
 
   let [wheelSettings, setWheelSettings] = useState({
     spinDuration: 5,
     numOfSpins: 5,
     segments: [
-      { id: "0", fillStyle: "#52AA83", text: "Prize One" },
-      { id: "1", fillStyle: "#D96B75", text: "Prize Two" },
-      { id: "2", fillStyle: "#48B2C3", text: "Prize Three" },
+      { id: "0", fillStyle: "#52AB84", text: "Pizza" },
+      { id: "1", fillStyle: "#D96B75", text: "Burger" },
+      { id: "2", fillStyle: "#47B2C2", text: "Tacos" },
+      { id: "3", fillStyle: "#DA9457", text: "Fries" },
+      { id: "4", fillStyle: "#DEC85E", text: "Pasta" },
+      { id: "5", fillStyle: "#325D89", text: "Hot Dogs" },
+      { id: "6", fillStyle: "#6A4A80", text: "Fried Chicken" },
     ],
   });
 
-  useEffect(() => {
+  let createTheWheel = () => {
     setTheWheel(
       new Winwheel({
         canvasId: "wheel",
@@ -40,6 +48,7 @@ const Create = () => {
         pointerAngle: 90,
         numSegments: wheelSettings.segments.length,
         textFontSize: 28,
+        textFillStyle: "#ffffff",
         strokeStyle: "white",
         lineWidth: 3,
         segments: wheelSettings.segments,
@@ -48,16 +57,26 @@ const Create = () => {
           duration: wheelSettings.spinDuration,
           spins: wheelSettings.numOfSpins,
           callbackFinished: (indicatedSegment) => {
-            console.log(indicatedSegment);
+            setIsOpen((prevState) => ({
+              ...prevState,
+              winner: true,
+            }));
+
+            setTheWinner(indicatedSegment.text);
           },
           callBackAfter: "drawTriangle()",
           //callbackSound: playSound,
         },
       })
     );
+  };
+
+  useEffect(() => {
+    createTheWheel();
   }, [wheelSettings]);
 
   const handleDragEnd = (result) => {
+    if (!result.destination) return;
     const items = Array.from(wheelSettings.segments);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -67,7 +86,6 @@ const Create = () => {
       segments: items,
     }));
   };
-  console.log(wheelSettings);
 
   const handleDeleteItem = (e) => {
     const findItemToDelete = wheelSettings.segments.findIndex((object) => {
@@ -81,10 +99,46 @@ const Create = () => {
       segments: wheelSettings.segments,
     }));
   };
-
+  {
+    console.log(isOpen);
+  }
   return (
     <Layout>
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+      {/*winner pop up*/}
+      <Dialog
+        open={isOpen.winner}
+        onClose={() => {
+          setIsOpen((prevState) => ({
+            ...prevState,
+            winner: false,
+          }));
+          setTheWinner("");
+          createTheWheel();
+        }}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="mx-auto max-w-sm rounded-md bg-white py-6 px-4">
+            <Dialog.Title>
+              <p className="text-2xl font-bold">The winner is...</p>
+              <p>{theWinner}</p>
+            </Dialog.Title>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/*settings pop up*/}
+      <Dialog
+        open={isOpen.settings}
+        onClose={() =>
+          setIsOpen((prevState) => ({
+            ...prevState,
+            settings: false,
+          }))
+        }
+        className="relative z-50"
+      >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="mx-auto max-w-sm rounded-md bg-white py-6 px-4">
@@ -110,12 +164,21 @@ const Create = () => {
       <div className="container my-3 flex justify-end">
         <SubHeaderItem icon={ShareIcon} action="Share" />
         <SubHeaderItem icon={FullScreenIcon} action="Full Screen" onClick={handle.enter} />
-        <SubHeaderItem icon={SettingsIcon} action="Settings" onClick={() => setIsOpen(true)} />
+        <SubHeaderItem
+          icon={SettingsIcon}
+          action="Settings"
+          onClick={() => {
+            setIsOpen((prevState) => ({
+              ...prevState,
+              settings: true,
+            }));
+          }}
+        />
         <SubHeaderItem icon={SaveIcon} action="Save" />
       </div>
       <div class="border-b border-gray-200"></div>
       <div className="py-10">
-        <div className="container my-5 grid grid-cols-1 gap-40 md:grid-cols-2">
+        <div className="container my-5 grid grid-cols-1 items-center gap-40 md:grid-cols-2">
           <FullScreen handle={handle}>
             <SpinWheel
               wheelSettings={wheelSettings}
@@ -124,7 +187,7 @@ const Create = () => {
               }}
             />
           </FullScreen>
-          <div className="rounded-md bg-blue-50 p-5">
+          <div className="h-full max-h-[35rem] rounded-md bg-blue-50 p-5">
             <ItemContainer
               spinTheWheel={() => {
                 theWheel.startAnimation();

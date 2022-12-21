@@ -2,10 +2,11 @@ import { useState } from "react";
 
 const ItemInput = (props) => {
   const [itemInputValue, setItemInputValue] = useState("");
+  const colorList = ["#52AB84", "#DA6B75", " #47B2C2", "#DA9457", "#DEC85E", "#325D89", "#6A4A80"];
 
   const handleClick = (e) => {
     if (itemInputValue !== "") {
-      e.updateWheelSettings({ fillStyle: "#7de6ef", text: itemInputValue });
+      e.updateWheelSettings({ fillStyle: colorList[props.wheelSettings.segments.length % 7], text: itemInputValue });
       setItemInputValue("");
     }
   };
