@@ -21,7 +21,7 @@ const Item = ({ wheelSettings, handleDragEnd, handleDeleteItem }) => {
               <div className="max-h-[28rem] overflow-y-auto" {...provided.droppableProps} ref={provided.innerRef}>
                 {wheelSettings.segments.map((item, index) => {
                   return (
-                    <Draggable key={item.text} draggableId={item.text} index={index}>
+                    <Draggable key={item.text + index} draggableId={item.text + index} index={index}>
                       {(provided) => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="flex items-center justify-between">
                           <div className="my-3 flex w-full items-center rounded-md bg-blue-100 p-2">

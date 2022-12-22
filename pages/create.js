@@ -1,11 +1,11 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 import Layout from "../components/Layout";
 import SpinWheel from "../components/SpinWheel";
 import ItemContainer from "../components/ItemContainer";
 import SubHeaderItem from "../components/SubHeaderItem";
 import Winwheel from "../dependencies/winwheel";
-import { useId } from "react-id-generator";
+import ContentEditable from "react-contenteditable";
 
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
@@ -25,6 +25,7 @@ const Create = () => {
   });
   let [theWheel, setTheWheel] = useState();
   let [theWinner, setTheWinner] = useState("");
+  const [title, setTitle] = useState("What to eat for Lunch?");
 
   let [wheelSettings, setWheelSettings] = useState({
     spinDuration: 5,
@@ -50,7 +51,7 @@ const Create = () => {
         textFontSize: 28,
         textFillStyle: "#ffffff",
         strokeStyle: "white",
-        lineWidth: 3,
+        lineWidth: 0,
         segments: wheelSettings.segments,
         animation: {
           type: "spinToStop",
@@ -176,17 +177,26 @@ const Create = () => {
         />
         <SubHeaderItem icon={SaveIcon} action="Save" />
       </div>
-      <div class="border-b border-gray-200"></div>
+      <div className="border-b border-gray-200"></div>
       <div className="py-10">
+        <div className="container">
+          <div className="grid grid-cols-1 items-center gap-40 md:grid-cols-2">
+            <ContentEditable className="mx-auto w-fit p-2 text-center text-2xl font-bold transition hover:cursor-pointer hover:bg-blue-50" html={title} onChange={(e) => setTitle(e.target.value)} />
+          </div>
+        </div>
+
         <div className="container my-5 grid grid-cols-1 items-center gap-40 md:grid-cols-2">
-          <FullScreen handle={handle}>
-            <SpinWheel
-              wheelSettings={wheelSettings}
-              spinTheWheel={() => {
-                theWheel.startAnimation();
-              }}
-            />
-          </FullScreen>
+          <div>
+            <FullScreen handle={handle}>
+              <SpinWheel
+                wheelSettings={wheelSettings}
+                spinTheWheel={() => {
+                  theWheel.startAnimation();
+                }}
+              />
+            </FullScreen>
+          </div>
+
           <div className="h-full max-h-[35rem] rounded-md bg-blue-50 p-5">
             <ItemContainer
               spinTheWheel={() => {
