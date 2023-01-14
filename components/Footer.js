@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
@@ -11,14 +13,14 @@ const Footer = () => {
             </a>
           </div>
           <div className="px-5">
-            <a href="#" className="text-base text-gray-400 hover:text-gray-600">
-              Privacy Policy
-            </a>
+            <Link href="/privacy-policy">
+              <a className="text-base text-gray-400 hover:text-gray-600">Privacy Policy</a>
+            </Link>
           </div>
           <div className="px-5">
-            <a href="#" className="text-base text-gray-400 hover:text-gray-600">
-              Terms and Conditions
-            </a>
+            <Link href="/terms-and-conditions">
+              <a className="text-base text-gray-400 hover:text-gray-600">Terms and Conditions</a>
+            </Link>
           </div>
         </nav>
       </div>
