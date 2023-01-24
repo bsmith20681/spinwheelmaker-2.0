@@ -25,7 +25,6 @@ const Item = ({ wheelSettings, handleDragEnd, handleDeleteItem }) => {
                       {(provided) => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="flex items-center justify-between">
                           <div className="my-3 flex w-full items-center rounded-md bg-blue-100 p-2">
-                            {console.log(provided)}
                             <Image src={DotsIcon} alt="dots" />
                             <p>{item.text}</p>
                           </div>
