@@ -29,23 +29,18 @@ const Create = () => {
   let [theWinner, setTheWinner] = useState("");
   const [title, setTitle] = useState("What to eat for Lunch?");
 
-  const [test, setTest] = useState("");
-
   let [wheelSettings, setWheelSettings] = useState({
     spinDuration: 5,
     numOfSpins: 5,
-    segments:
-      localStorage.getItem("localWheelSegments") !== null
-        ? JSON.parse(localStorage.getItem("localWheelSegments"))
-        : [
-            { id: "0", fillStyle: "#52AB84", text: "Pizza" },
-            { id: "1", fillStyle: "#D96B75", text: "Burger" },
-            { id: "2", fillStyle: "#47B2C2", text: "Tacos" },
-            { id: "3", fillStyle: "#DA9457", text: "Fries" },
-            { id: "4", fillStyle: "#DEC85E", text: "Pasta" },
-            { id: "5", fillStyle: "#325D89", text: "Hot Dogs" },
-            { id: "6", fillStyle: "#6A4A80", text: "Fried Chicken" },
-          ],
+    segments: [
+      { id: "0", fillStyle: "#52AB84", text: "Pizza" },
+      { id: "1", fillStyle: "#D96B75", text: "Burger" },
+      { id: "2", fillStyle: "#47B2C2", text: "Tacos" },
+      { id: "3", fillStyle: "#DA9457", text: "Fries" },
+      { id: "4", fillStyle: "#DEC85E", text: "Pasta" },
+      { id: "5", fillStyle: "#325D89", text: "Hot Dogs" },
+      { id: "6", fillStyle: "#6A4A80", text: "Fried Chicken" },
+    ],
   });
 
   let createTheWheel = () => {
@@ -79,14 +74,8 @@ const Create = () => {
     );
   };
 
-  const updateLocalStorage = () => {
-    const getCurrentItems = localStorage.getItem("localWheelSegments");
-    localStorage.setItem("localWheelSegments", JSON.stringify(wheelSettings.segments));
-  };
-
   useEffect(() => {
     createTheWheel();
-    updateLocalStorage();
   }, [wheelSettings]);
 
   const handleDragEnd = (result) => {
