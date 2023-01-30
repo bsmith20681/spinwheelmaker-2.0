@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import Layout from "../components/Layout";
 import SpinWheel from "../components/SpinWheel";
@@ -7,14 +7,17 @@ import SubHeaderItem from "../components/SubHeaderItem";
 import Winwheel from "../dependencies/winwheel";
 import ContentEditable from "react-contenteditable";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import axios from "axios";
+
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
 import FullScreenIcon from "../public/images/fullScreenIcon.png";
 import ShareIcon from "../public/images/shareIcon.png";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-
-import useLocalStorage from "use-local-storage";
 
 import { Dialog } from "@headlessui/react";
 
@@ -72,6 +75,21 @@ const Create = () => {
         },
       })
     );
+  };
+
+  const saveWheel = () => {
+    axios
+      .post("http://localhost:5000/api/v1/spinwheel", { title: title, segments: wheelSettings.segments })
+      .then(() => {
+        toast.success("Your Wheel Has Been Saved!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch(() => {
+        toast.error("Your Wheel Has Been Saved!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
   };
 
   useEffect(() => {
@@ -175,7 +193,7 @@ const Create = () => {
             }));
           }}
         />
-        <SubHeaderItem icon={SaveIcon} action="Save" />
+        <SubHeaderItem onClick={saveWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
       <div className="py-10">
@@ -215,6 +233,7 @@ const Create = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </Layout>
   );
 };
