@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import axios from "axios";
 
+import SpinWheelContainer from "../../components/SpinWheelContainer";
+
 const ViewWheel = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -19,7 +21,6 @@ const ViewWheel = () => {
         responseType: "application/json",
       })
         .then((data) => {
-          console.log(data.data);
           setData(JSON.parse(data.data));
           setLoading(false);
         })
@@ -40,8 +41,8 @@ const ViewWheel = () => {
   ) : (
     <Layout>
       <div className="container">
-        <h1>Your wheel will be displayed here</h1>
-        {JSON.stringify(data)}
+        {console.log(data.data.segments)}
+        <SpinWheelContainer segments={data.data.segments} title={data.data.title} />
       </div>
     </Layout>
   );
