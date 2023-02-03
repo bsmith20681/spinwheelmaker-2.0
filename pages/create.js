@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import SpinWheelContainer from "../components/SpinWheelContainer";
+import { nanoid } from "nanoid";
 
 const Create = () => {
   return (
@@ -15,6 +16,7 @@ const Create = () => {
           { id: "6", fillStyle: "#6A4A80", text: "Fried Chicken" },
         ]}
         title="What to eat for Lunch?"
+        shortID={nanoid(11)}
       />
     </Layout>
   );

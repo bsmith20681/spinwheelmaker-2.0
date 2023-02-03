@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 import SpinWheel from "../components/SpinWheel";
 import ItemContainer from "../components/ItemContainer";
@@ -19,8 +20,10 @@ import ShareIcon from "../public/images/shareIcon.png";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 import { Dialog } from "@headlessui/react";
+import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
 
 const SpinWheelContainer = (props) => {
+  const router = useRouter();
   const handle = useFullScreenHandle();
 
   let [isOpen, setIsOpen] = useState({
@@ -70,13 +73,14 @@ const SpinWheelContainer = (props) => {
 
   const saveWheel = () => {
     axios
-      .post("http://localhost:5000/api/v1/spinwheel", { title: title, segments: wheelSettings.segments })
+      .post("http://localhost:5000/api/v1/spinwheel", { title: title, shortID: props.shortID, iteration: props.iteration + 1, segments: wheelSettings.segments })
       .then((data) => {
         console.log("response from server");
         console.log(data);
         toast.success("Your Wheel Has Been Saved!", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        router.push(`/${data.data.data.shortID}/${data.data.data.iteration}`);
       })
       .catch(() => {
         toast.error("Your Wheel Has Been Saved!", {
