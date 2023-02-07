@@ -29,10 +29,13 @@ const SpinWheelContainer = (props) => {
   let [isOpen, setIsOpen] = useState({
     settings: false,
     winner: false,
+    savedURL: false,
   });
+
   let [theWheel, setTheWheel] = useState();
   let [theWinner, setTheWinner] = useState("");
   const [title, setTitle] = useState(props.title);
+  const [savedURL, setSavedURL] = useState("");
 
   let [wheelSettings, setWheelSettings] = useState({
     spinDuration: 5,
@@ -80,7 +83,13 @@ const SpinWheelContainer = (props) => {
         toast.success("Your Wheel Has Been Saved!", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        router.push(`/${data.data.data.shortID}/${data.data.data.iteration}`);
+
+        setSavedURL(`/${data.data.data.shortID}/${data.data.data.iteration}`);
+
+        setIsOpen((prevState) => ({
+          ...prevState,
+          savedURL: true,
+        }));
       })
       .catch(() => {
         toast.error("Your Wheel Has Been Saved!", {
@@ -120,6 +129,36 @@ const SpinWheelContainer = (props) => {
 
   return (
     <>
+      <Dialog
+        open={isOpen.savedURL}
+        onClose={() => {
+          setIsOpen((prevState) => ({
+            ...prevState,
+            savedURL: false,
+          }));
+          router.push(savedURL);
+        }}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="mx-auto max-w-sm rounded-md bg-white py-6 px-4">
+            <Dialog.Title>
+              <p className="text-2xl font-bold">Save this link for later</p>
+
+              <div>
+                <label htmlFor="email" className="sr-only">
+                  Saved Link
+                </label>
+                <p>{`localhost:3000${savedURL}`}</p>
+                <div></div>
+              </div>
+            </Dialog.Title>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/*saved url pop up*/}
       <Dialog
         open={isOpen.winner}
         onClose={() => {
