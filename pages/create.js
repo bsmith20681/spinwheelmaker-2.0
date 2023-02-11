@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 const Create = () => {
   return (
-    <Layout>
+    <Layout isAuth={false}>
       <SpinWheelContainer
         segments={[
           { id: "0", fillStyle: "#52AB84", text: "Pizza" },

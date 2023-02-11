@@ -14,7 +14,7 @@ const ViewWheel = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:5000/api/v1/spinwheel/${shortID}/${iteration}`,
+      url: `${process.env.BACKEND_URL}/api/v1/spinwheel/${shortID}/${iteration}`,
     })
       .then((data) => {
         setResponse(data.data.data[0]);
@@ -34,9 +34,7 @@ const ViewWheel = () => {
     </Layout>
   ) : (
     <Layout>
-      <div className="container">
-        <SpinWheelContainer segments={response.segments} iteration={response.iteration} shortID={response.shortID} title={response.title} />
-      </div>
+      <SpinWheelContainer segments={response.segments} iteration={response.iteration} shortID={response.shortID} title={response.title} />
     </Layout>
   );
 };

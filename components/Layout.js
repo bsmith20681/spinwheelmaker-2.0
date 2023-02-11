@@ -4,7 +4,7 @@ import Footer from "./Footer";
 const Layout = (props) => {
   return (
     <div>
-      <Header />
+      <Header isAuth={props.isAuth} />
       {props.children}
       <Footer />
     </div>
