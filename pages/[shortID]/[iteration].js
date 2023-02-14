@@ -14,7 +14,7 @@ const ViewWheel = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${process.env.BACKEND_URL}/api/v1/spinwheel/${shortID}/${iteration}`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel/${shortID}/${iteration}`,
     })
       .then((data) => {
         setResponse(data.data.data[0]);

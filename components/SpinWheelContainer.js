@@ -82,7 +82,7 @@ const SpinWheelContainer = (props) => {
 
   const saveWheel = () => {
     axios
-      .post(`${process.env.BACKEND_URL}/api/v1/spinwheel`, { title: title, shortID: props.shortID, iteration: props.iteration + 1, segments: wheelSettings.segments })
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel`, { title: title, shortID: props.shortID, iteration: props.iteration + 1, segments: wheelSettings.segments })
       .then((data) => {
         console.log("response from server");
         console.log(data);
@@ -90,7 +90,7 @@ const SpinWheelContainer = (props) => {
           position: toast.POSITION.TOP_RIGHT,
         });
 
-        setSavedURL(`${process.env.CLIENT_URL}/${data.data.data.shortID}/${data.data.data.iteration}`);
+        setSavedURL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/${data.data.data.shortID}/${data.data.data.iteration}`);
 
         setIsOpen((prevState) => ({
           ...prevState,

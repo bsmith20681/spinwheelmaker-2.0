@@ -1,11 +1,30 @@
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import axios, { AxiosResponse } from "axios";
+
 import Link from "next/link";
 import Image from "next/image";
 
 import Logo from "../public/images/logo.png";
 
-const Header = (props) => {
+const Header = () => {
+  const userData = useContext(UserContext);
+
   const redirectToGoogleSSO = async () => {
-    window.open("http://localhost:5000/api/v1/auth/google", "_blank", "width=500,height=600");
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google`, "_self", "width=500,height=600");
+  };
+
+  const logout = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/logout`, { withCredentials: true })
+      .then((response) => {
+        if (response.data) {
+          window.location.href = "/";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -18,10 +37,16 @@ const Header = (props) => {
             </Link>
           </div>
 
-          <div class="flex">
-            {props.isAuth ? (
+          <div className="flex">
+            {userData.googleId != null ? (
               <>
-                <h1>you are logged in</h1>
+                <div className="flex">
+                  <p>Hello {userData.first_name}</p>
+                  <Image className="rounded-full" width={60} height={60} src={userData.picture} alt="profile pic" />
+                </div>
+                <button onClick={logout} className="mx-5 rounded-md border-2 bg-white py-2 px-8 text-center  font-semibold text-gray-600 transition hover:bg-gray-300">
+                  Log Out
+                </button>
               </>
             ) : (
               <>
