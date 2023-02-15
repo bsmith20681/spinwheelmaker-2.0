@@ -116,7 +116,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container my-12">
         <h2 className="mt-6 mb-3 text-center text-2xl font-bold text-neutral-800">Frequently Asked Questions</h2>
         <div className="mx-auto max-w-5xl">
           <Disclosure>
