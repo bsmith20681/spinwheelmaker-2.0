@@ -1,26 +1,24 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-import SpinWheel from "../components/SpinWheel";
+import ContentEditable from "react-contenteditable";
 import ItemContainer from "../components/ItemContainer";
+import SpinWheel from "../components/SpinWheel";
 import SubHeaderItem from "../components/SubHeaderItem";
 import Winwheel from "../dependencies/winwheel";
-import ContentEditable from "react-contenteditable";
 
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import FullScreenIcon from "../public/images/fullScreenIcon.png";
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
-import FullScreenIcon from "../public/images/fullScreenIcon.png";
-import ShareIcon from "../public/images/shareIcon.png";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 import { Dialog } from "@headlessui/react";
-import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
 
 const SpinWheelContainer = (props) => {
   const router = useRouter();

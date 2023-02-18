@@ -3,18 +3,24 @@ import { UserContext } from "../context/UserContext";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Popover, Transition } from "@headlessui/react";
+import { Popover, Dialog } from "@headlessui/react";
 
 import axios from "axios";
 
 import SignOut from "../public/images/SignOut.png";
 import UserCircle from "../public/images/UserCircle.png";
 import Logo from "../public/images/logo.png";
+import FacebookLogo from "../public/images/facebook-logo.png";
+import GoogleLogo from "../public/images/google-icon.svg";
+import TwitterLogo from "../public/images/twitter-logo-blue.svg";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const Header = () => {
   const userData = useContext(UserContext);
   const [openPopover, setOpenPopover] = useState(false);
+
+  const [loginPopup, setLoginPopup] = useState(false);
+  const [signinPopup, setSigninPopup] = useState(false);
 
   const redirectToGoogleSSO = async () => {
     window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google`, "_self", "width=500,height=600");
@@ -84,13 +90,74 @@ const Header = () => {
               </>
             ) : (
               <>
-                <button onClick={redirectToGoogleSSO} className="mx-5 rounded-md border-2 bg-white py-2 px-8 text-center  font-semibold text-gray-600 transition hover:bg-gray-300">
-                  Sign In
+                <button onClick={() => setLoginPopup(true)} className="mx-5 rounded-md border-2 bg-white py-2 px-8 text-center  font-semibold text-gray-600 transition hover:bg-gray-300">
+                  Login
                 </button>
 
-                <button onClick={redirectToGoogleSSO} className="rounded-md bg-blue-600 py-2 px-8 text-center  font-semibold text-white transition hover:bg-blue-700">
+                <button onClick={() => setSigninPopup(true)} className="rounded-md bg-blue-600 py-2 px-8 text-center  font-semibold text-white transition hover:bg-blue-700">
                   Sign Up
                 </button>
+                <Dialog open={loginPopup} onClose={() => setLoginPopup(false)} className="relative z-50">
+                  <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+                  <div className="fixed inset-0 flex items-center justify-center p-4">
+                    <Dialog.Panel className="mx-auto max-w-md rounded-md bg-white py-6 px-4">
+                      <Dialog.Title>
+                        <p className="mb-5">Login</p>
+                      </Dialog.Title>
+                      <div>
+                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                          <div className="mr-4 flex items-center">
+                            <Image width={25} height={25} src={GoogleLogo} alt="google Logo" />
+                          </div>
+                          <p className="flex w-36 justify-start">Login with Google</p>
+                        </button>
+                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                          <div className="mr-4 flex items-center">
+                            <Image width={25} height={25} src={FacebookLogo} alt="google Logo" />
+                          </div>
+                          <p className="flex w-36 justify-start">Login with Facebook</p>
+                        </button>
+                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                          <div className="mr-4 flex items-center">
+                            <Image width={25} height={25} src={TwitterLogo} alt="google Logo" />
+                          </div>
+                          <p className="flex w-36 justify-start">Login with Twitter</p>
+                        </button>
+                      </div>
+                    </Dialog.Panel>
+                  </div>
+                </Dialog>
+
+                <Dialog open={signinPopup} onClose={() => setSigninPopup(false)} className="relative z-50">
+                  <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+                  <div className="fixed inset-0 flex items-center justify-center p-4">
+                    <Dialog.Panel className="mx-auto max-w-md rounded-md bg-white py-6 px-4">
+                      <Dialog.Title>
+                        <p>Sign Up</p>
+                      </Dialog.Title>
+                      <div>
+                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                          <div className="mr-4 flex items-center">
+                            <Image width={25} height={25} src={GoogleLogo} alt="google Logo" />
+                          </div>
+                          <p className="flex w-40 justify-start">Signup with Google</p>
+                        </button>
+                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                          <div className="mr-4 flex items-center">
+                            <Image width={25} height={25} src={FacebookLogo} alt="google Logo" />
+                          </div>
+                          <p className="flex w-40 justify-start">Signup with Facebook</p>
+                        </button>
+                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                          <div className="mr-4 flex items-center">
+                            <Image width={25} height={25} src={TwitterLogo} alt="google Logo" />
+                          </div>
+                          <p className="flex w-40 justify-start">Signup with Twitter</p>
+                        </button>
+                      </div>
+                    </Dialog.Panel>
+                  </div>
+                </Dialog>
               </>
             )}
           </div>
