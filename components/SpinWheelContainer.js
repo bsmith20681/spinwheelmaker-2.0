@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 import ContentEditable from "react-contenteditable";
 import ItemContainer from "../components/ItemContainer";
@@ -23,6 +24,7 @@ import { Dialog } from "@headlessui/react";
 const SpinWheelContainer = (props) => {
   const router = useRouter();
   const handle = useFullScreenHandle();
+  const userData = useContext(UserContext);
 
   let [isOpen, setIsOpen] = useState({
     settings: false,
@@ -80,7 +82,13 @@ const SpinWheelContainer = (props) => {
 
   const saveWheel = () => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel`, { title: title, shortID: props.shortID, iteration: props.iteration + 1, segments: wheelSettings.segments })
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel`, {
+        title: title,
+        shortID: props.shortID,
+        iteration: props.iteration + 1,
+        segments: wheelSettings.segments,
+        user: userData._id ? userData._id : null,
+      })
       .then((data) => {
         console.log("response from server");
         console.log(data);

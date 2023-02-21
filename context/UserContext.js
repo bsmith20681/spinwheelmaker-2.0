@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
+import Cookies from "js-cookie";
+
 export const UserContext = createContext({});
 
 export default function Context({ children }) {
@@ -9,16 +11,13 @@ export default function Context({ children }) {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/getuser`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user`,
       withCredentials: true,
     })
       .then((data) => {
         setUserObject(data.data.data);
-        //console.log(data);
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => setUserObject({ isAuth: false }));
   }, []);
 
   return <UserContext.Provider value={userObject}>{userObject ? children : false}</UserContext.Provider>;

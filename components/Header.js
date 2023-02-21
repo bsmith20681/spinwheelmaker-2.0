@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Popover, Dialog } from "@headlessui/react";
 
 import axios from "axios";
+import { removeCookie } from "../actions/auth";
 
 import SignOut from "../public/images/SignOut.png";
 import UserCircle from "../public/images/UserCircle.png";
@@ -13,6 +14,7 @@ import Logo from "../public/images/logo.png";
 import FacebookLogo from "../public/images/facebook-logo.png";
 import GoogleLogo from "../public/images/google-icon.svg";
 import TwitterLogo from "../public/images/twitter-logo-blue.svg";
+import DefaultProfile from "../public/images/profile_pic.png";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const Header = () => {
@@ -23,7 +25,11 @@ const Header = () => {
   const [signinPopup, setSigninPopup] = useState(false);
 
   const redirectToGoogleSSO = async () => {
-    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google`, "_self", "width=500,height=600");
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google`, "_self");
+  };
+
+  const redirectToFacebookSSO = async () => {
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/facebook`, "_self");
   };
 
   const logout = () => {
@@ -45,12 +51,16 @@ const Header = () => {
         <div className="flex items-center justify-between py-3">
           <div>
             <Link href="/">
-              <Image className="hover:cursor-pointer" src={Logo} alt="logo" />
+              <div>
+                <Image className="hover:cursor-pointer" src={Logo} alt="logo" />
+              </div>
             </Link>
           </div>
 
+          {console.log(userData)}
+
           <div className="flex items-center">
-            {userData.googleId != null ? (
+            {userData.oauthId != null ? (
               <>
                 <p className="mr-3">Hello {userData.first_name}!</p>
 
@@ -66,16 +76,16 @@ const Header = () => {
                         }}
                       >
                         {" "}
-                        <Image className="rounded-lg" width={46} height={46} src={userData.picture} alt="profile pic" />
+                        <Image className="rounded-lg" width={46} height={46} src={userData.picture == null ? DefaultProfile : userData.picture} alt="profile pic" />
                         <ChevronDownIcon className={open ? "w-6 rotate-180 transform" : "w-6"} />
                       </Popover.Button>
 
                       <Popover.Panel className="absolute right-0 z-10 w-40 rounded-lg bg-white py-3 px-6 shadow-lg">
                         <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
                           <Image src={UserCircle} alt="user account" />
-                          <a className="ml-3" href="/account">
-                            Account
-                          </a>
+                          <Link href="/account">
+                            <a className="ml-3">Account</a>
+                          </Link>
                         </div>
                         <div className="flex items-center px-1  hover:cursor-pointer hover:bg-gray-100" onClick={logout}>
                           <Image src={SignOut} alt="log out" />
@@ -111,7 +121,7 @@ const Header = () => {
                           </div>
                           <p className="flex w-36 justify-start">Login with Google</p>
                         </button>
-                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                        <button onClick={redirectToFacebookSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
                           <div className="mr-4 flex items-center">
                             <Image width={25} height={25} src={FacebookLogo} alt="google Logo" />
                           </div>
@@ -142,7 +152,7 @@ const Header = () => {
                           </div>
                           <p className="flex w-40 justify-start">Signup with Google</p>
                         </button>
-                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                        <button onClick={redirectToFacebookSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
                           <div className="mr-4 flex items-center">
                             <Image width={25} height={25} src={FacebookLogo} alt="google Logo" />
                           </div>
