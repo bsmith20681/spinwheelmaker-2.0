@@ -12,19 +12,21 @@ const ViewWheel = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!shortID) {
+      return;
+    }
     axios({
       method: "GET",
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel/${shortID}/${iteration}`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel/${shortID}`,
     })
       .then((data) => {
         setResponse(data.data.data[0]);
         setLoading(false);
-        console.log(data.data.data[0]);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [iteration]);
+  }, [shortID]);
 
   return loading ? (
     <Layout>
@@ -34,7 +36,7 @@ const ViewWheel = () => {
     </Layout>
   ) : (
     <Layout>
-      <SpinWheelContainer segments={response.segments} iteration={response.iteration} shortID={response.shortID} title={response.title} />
+      <SpinWheelContainer allIterations={response.iteration} segments={response.iteration.at(-1).segments} iteration={response.iteration.at(-1) + 1} shortID={response.shortID} title={response.iteration.at(-1).title} />
     </Layout>
   );
 };

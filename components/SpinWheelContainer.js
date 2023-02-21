@@ -83,10 +83,8 @@ const SpinWheelContainer = (props) => {
   const saveWheel = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel`, {
-        title: title,
         shortID: props.shortID,
-        iteration: props.iteration + 1,
-        segments: wheelSettings.segments,
+        iteration: [{ title: title, segments: wheelSettings.segments }],
         user: userData._id ? userData._id : null,
       })
       .then((data) => {
@@ -96,7 +94,36 @@ const SpinWheelContainer = (props) => {
           position: toast.POSITION.TOP_RIGHT,
         });
 
-        setSavedURL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/${data.data.data.shortID}/${data.data.data.iteration}`);
+        setSavedURL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/${data.data.data.shortID}/${data.data.data.iteration.length}`);
+
+        setIsOpen((prevState) => ({
+          ...prevState,
+          savedURL: true,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something Went Wrong", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  };
+
+  const updateWheel = () => {
+    axios
+      .put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel/${props.shortID}`, {
+        shortID: props.shortID,
+        iteration: { title: title, segments: wheelSettings.segments },
+        user: userData._id ? userData._id : null,
+      })
+      .then((data) => {
+        console.log("response from server");
+        console.log(data);
+        toast.success("Your Wheel Has Been Saved!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        setSavedURL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/${data.data.data.shortID}/${data.data.data.iteration.length}`);
 
         setIsOpen((prevState) => ({
           ...prevState,
@@ -159,7 +186,7 @@ const SpinWheelContainer = (props) => {
             <Dialog.Title>
               <p className="text-2xl font-bold">Save this link for later</p>
 
-              <div class="flex items-center rounded-md border-2 border-gray-400 bg-gray-100 p-2">
+              <div className="flex items-center rounded-md border-2 border-gray-400 bg-gray-100 p-2">
                 <label htmlFor="email" className="sr-only">
                   Saved Link
                 </label>
@@ -172,7 +199,7 @@ const SpinWheelContainer = (props) => {
                     })
                   }
                 >
-                  <span class="ml-4 flex hover:cursor-pointer hover:text-blue-600">
+                  <span className="ml-4 flex hover:cursor-pointer hover:text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
                       <path
                         strokeLinecap="round"
@@ -190,6 +217,7 @@ const SpinWheelContainer = (props) => {
       </Dialog>
 
       {/*saved url pop up*/}
+
       <Dialog
         open={isOpen.winner}
         onClose={() => {
@@ -259,7 +287,7 @@ const SpinWheelContainer = (props) => {
             }));
           }}
         />
-        <SubHeaderItem onClick={saveWheel} icon={SaveIcon} action="Save" />
+        <SubHeaderItem onClick={Object.keys(router.query).length == 0 ? saveWheel : updateWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
       <div className="py-10">
