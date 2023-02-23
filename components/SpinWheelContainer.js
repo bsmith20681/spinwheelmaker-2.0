@@ -23,8 +23,11 @@ import { Dialog } from "@headlessui/react";
 
 const SpinWheelContainer = (props) => {
   const router = useRouter();
-  const handle = useFullScreenHandle();
+  const handleWheel = useFullScreenHandle();
+  const handleWinnerPopup = useFullScreenHandle();
+
   const userData = useContext(UserContext);
+  const isUserLoggedIn = Object.keys(router.query).length != 0 ? true : false;
 
   let [isOpen, setIsOpen] = useState({
     settings: false,
@@ -169,6 +172,8 @@ const SpinWheelContainer = (props) => {
 
   return (
     <>
+      {/*The winner is*/}
+
       <Dialog
         open={isOpen.savedURL}
         onClose={() => {
@@ -215,31 +220,7 @@ const SpinWheelContainer = (props) => {
           </Dialog.Panel>
         </div>
       </Dialog>
-
       {/*saved url pop up*/}
-
-      <Dialog
-        open={isOpen.winner}
-        onClose={() => {
-          setIsOpen((prevState) => ({
-            ...prevState,
-            winner: false,
-          }));
-          setTheWinner("");
-          createTheWheel();
-        }}
-        className="relative z-50"
-      >
-        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="mx-auto max-w-sm rounded-md bg-white py-6 px-4">
-            <Dialog.Title>
-              <p className="text-2xl font-bold">The winner is...</p>
-              <p>{theWinner}</p>
-            </Dialog.Title>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
 
       {/*settings pop up*/}
       <Dialog
@@ -276,7 +257,13 @@ const SpinWheelContainer = (props) => {
       </Dialog>
       <div className="container my-3 flex justify-end">
         {/*<SubHeaderItem icon={ShareIcon} action="Share" />*/}
-        <SubHeaderItem icon={FullScreenIcon} action="Full Screen" onClick={handle.enter} />
+        <SubHeaderItem
+          icon={FullScreenIcon}
+          action="Full Screen"
+          onClick={() => {
+            handleWheel.enter();
+          }}
+        />
         <SubHeaderItem
           icon={SettingsIcon}
           action="Settings"
@@ -287,7 +274,7 @@ const SpinWheelContainer = (props) => {
             }));
           }}
         />
-        <SubHeaderItem onClick={Object.keys(router.query).length == 0 ? saveWheel : updateWheel} icon={SaveIcon} action="Save" />
+        <SubHeaderItem onClick={isUserLoggedIn ? saveWheel : updateWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
       <div className="py-10">
@@ -299,13 +286,34 @@ const SpinWheelContainer = (props) => {
 
         <div className="container my-5 grid grid-cols-1 items-center gap-40 md:grid-cols-2">
           <div>
-            <FullScreen handle={handle}>
-              <SpinWheel
-                wheelSettings={wheelSettings}
-                spinTheWheel={() => {
-                  theWheel.startAnimation();
-                }}
-              />
+            <FullScreen handle={handleWheel}>
+              <div>
+                {/*  Using custom modal instead of headless because in order for it to appear on fullscreen mode it the jsx cannot be dynamically populated*/}
+
+                <div className={isOpen.winner ? "fixed z-20" : "hidden"}>
+                  <div className="fixed top-1/2 left-1/2 z-30 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-md bg-white py-6 px-4">
+                    <p className="text-2xl font-bold">The winner is...</p>
+                    <p className="text-2xl font-bold">{theWinner}</p>
+                  </div>
+                  <div
+                    onClick={() => {
+                      setIsOpen((prevState) => ({
+                        ...prevState,
+                        winner: false,
+                      }));
+                      setTheWinner("");
+                      createTheWheel();
+                    }}
+                    className={isOpen.winner ? "fixed inset-0 z-20 bg-black/30" : "hidden"}
+                  ></div>
+                </div>
+                <SpinWheel
+                  wheelSettings={wheelSettings}
+                  spinTheWheel={() => {
+                    theWheel.startAnimation();
+                  }}
+                />
+              </div>
             </FullScreen>
           </div>
 
