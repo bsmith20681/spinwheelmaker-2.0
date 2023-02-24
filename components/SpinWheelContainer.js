@@ -27,7 +27,7 @@ const SpinWheelContainer = (props) => {
   const handleWinnerPopup = useFullScreenHandle();
 
   const userData = useContext(UserContext);
-  const isUserLoggedIn = Object.keys(router.query).length != 0 ? true : false;
+  const isUserLoggedIn = Object.keys(userData).length != 0 ? true : false;
 
   let [isOpen, setIsOpen] = useState({
     settings: false,

@@ -123,7 +123,7 @@ export default function Home() {
             {({ open }) => (
               <div className={open ? "my-6 rounded-md border-2 border-blue-300 bg-blue-100 px-7 py-2" : "my-6 rounded-md border-2 border-gray-300 bg-gray-100 px-7 py-2"}>
                 <Disclosure.Button className={open ? "flex w-full justify-between font-medium text-blue-500" : "flex w-full justify-between font-medium "}>
-                  Why use our Spin wheel maker?
+                  Why use spinwheelmaker.com?
                   {open ? <MinusCircleIcon className={open ? "w-6" : "w-6"} /> : <PlusCircleIcon className={open ? "w-6" : "w-6"} />}
                 </Disclosure.Button>
                 <Transition
@@ -134,7 +134,9 @@ export default function Home() {
                   leaveFrom="transform scale-100 opacity-100"
                   leaveTo="transform scale-95 opacity-0"
                 >
-                  <Disclosure.Panel className="mt-4 text-gray-500">Yes! You can purchase a license that you can share with your entire team.</Disclosure.Panel>
+                  <Disclosure.Panel className="mt-4 text-gray-500">
+                    Spinwheelmaker.com is one of the easiest to use spinwheel websites out there! We make it a breeze to get set up and running in no time. Once you have everything ready, you can easily create an account to save your work for later.
+                  </Disclosure.Panel>
                 </Transition>
               </div>
             )}
@@ -143,7 +145,7 @@ export default function Home() {
             {({ open }) => (
               <div className={open ? "my-6 rounded-md border-2 border-blue-300 bg-blue-100 px-7 py-2" : "my-6 rounded-md border-2 border-gray-300 bg-gray-100 px-7 py-2"}>
                 <Disclosure.Button className={open ? "flex w-full justify-between font-medium text-blue-500" : "flex w-full justify-between font-medium "}>
-                  How Do I use SpinWheelMaker.com?
+                  How Do I use spinwheelmaker.com?
                   {open ? <MinusCircleIcon className={open ? "w-6" : "w-6"} /> : <PlusCircleIcon className={open ? "w-6" : "w-6"} />}
                 </Disclosure.Button>
                 <Transition
@@ -154,7 +156,10 @@ export default function Home() {
                   leaveFrom="transform scale-100 opacity-100"
                   leaveTo="transform scale-95 opacity-0"
                 >
-                  <Disclosure.Panel className="mt-4 text-gray-500">Yes! You can purchase a license that you can share with your entire team.</Disclosure.Panel>
+                  <Disclosure.Panel className="mt-4 text-gray-500">
+                    You can easily start creating a spinwheel by clicking the edit button near the top of the homepage. From there you will be able to edit the inputs of your spinwheel and save it for later. Once you are ready to decide, you click on the wheel
+                    and let it work it's magic!
+                  </Disclosure.Panel>
                 </Transition>
               </div>
             )}
@@ -174,7 +179,9 @@ export default function Home() {
                   leaveFrom="transform scale-100 opacity-100"
                   leaveTo="transform scale-95 opacity-0"
                 >
-                  <Disclosure.Panel className="mt-4 text-gray-500">Yes! You can purchase a license that you can share with your entire team.</Disclosure.Panel>
+                  <Disclosure.Panel className="mt-4 text-gray-500">
+                    Never! We believe in unbiasedly selecting a winner. Our algorithm is powered by JavaScript's Random method. So rest assured in knowing that whatever winner it picks is completely random.
+                  </Disclosure.Panel>
                 </Transition>
               </div>
             )}
