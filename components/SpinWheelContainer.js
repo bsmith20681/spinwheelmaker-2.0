@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import Link from "next/link";
+import Image from "next/image";
 
 import ContentEditable from "react-contenteditable";
 import ItemContainer from "../components/ItemContainer";
@@ -16,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import FullScreenIcon from "../public/images/fullScreenIcon.png";
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
+import WheelIcon from "../public/images/spinwheel-icon-gray.png";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
@@ -257,6 +260,16 @@ const SpinWheelContainer = (props) => {
       </Dialog>
       <div className="container my-3 flex justify-end">
         {/*<SubHeaderItem icon={ShareIcon} action="Share" />*/}
+
+        {console.log(props.iteration)}
+        {props.iteration != 0 ? (
+          <div className="ml-3 flex items-center justify-center rounded-md py-1 px-2 transition duration-150 hover:cursor-pointer hover:bg-gray-100 hover:ease-in" onClick={props.onClick}>
+            <Image className="text-gray-600" src={WheelIcon} />
+            <Link href="/create">
+              <a className="ml-3 text-sm text-neutral-800">Create New Wheel</a>
+            </Link>
+          </div>
+        ) : null}
         <SubHeaderItem
           icon={FullScreenIcon}
           action="Full Screen"

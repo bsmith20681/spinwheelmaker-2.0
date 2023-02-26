@@ -1,8 +1,22 @@
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 const TermsAndConditions = () => {
   return (
     <Layout>
+      <Head>
+        <title>SpinWheelMaker.com | Terms and Conditions</title>
+        <meta name="description" content="Check out our Terms and Conditions here on spinwheelmaker.com" key="desc" />
+        <meta property="og:title" content="SpinWheelMaker.com | Terms and Conditions" />
+        <meta property="og:description" content="Check out our Terms and Conditions here on spinwheelmaker.com" />
+        <meta property="og:image" content="../public/images/screenshot.png" />
+        <meta property="og:type" content="website"></meta>
+        <meta name="viewport" content="initial-scale=1,width=device-width"></meta>
+        <meta property="keywords" content="spin the wheel, spinwheelmaker.com, spin the wheel online, wheel decide, deciding wheel, random name picker, random picker wheel, random name picker"></meta>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon-32x32.png" />
+      </Head>
       <div className="container">
         <h1 className="my-4 text-2xl font-semibold">Terms and Conditions for spinwheelmaker.com</h1>
         <h2 className="my-4 text-xl font-semibold">Introduction</h2>

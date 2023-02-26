@@ -10,6 +10,8 @@ import { removeCookie } from "../actions/auth";
 
 import SignOut from "../public/images/SignOut.png";
 import UserCircle from "../public/images/UserCircle.png";
+import WheelIcon from "../public/images/spinwheel-icon-gray.png";
+
 import Logo from "../public/images/logo.png";
 import FacebookLogo from "../public/images/facebook-logo.png";
 import GoogleLogo from "../public/images/google-icon.svg";
@@ -80,11 +82,19 @@ const Header = () => {
                         <ChevronDownIcon className={open ? "w-6 rotate-180 transform" : "w-6"} />
                       </Popover.Button>
 
-                      <Popover.Panel className="absolute right-0 z-10 w-40 rounded-lg bg-white py-3 px-6 shadow-lg">
+                      <Popover.Panel className="absolute right-0 z-10 w-64 rounded-lg bg-white py-3 px-6 shadow-lg">
                         <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
                           <Image src={UserCircle} alt="user account" />
                           <Link href="/account">
                             <a className="ml-3">Account</a>
+                          </Link>
+                        </div>
+                        <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
+                          <div className="flex w-5 items-center">
+                            <Image src={WheelIcon} alt="create new wheel" />
+                          </div>
+                          <Link href="/create">
+                            <a className="ml-3">Create New Wheel</a>
                           </Link>
                         </div>
                         <div className="flex items-center px-1  hover:cursor-pointer hover:bg-gray-100" onClick={logout}>

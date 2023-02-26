@@ -20,6 +20,19 @@ import { Disclosure, Transition } from "@headlessui/react";
 export default function Home() {
   return (
     <Layout>
+      <Head>
+        <title>SpinWheelMaker.com | Spin the Wheel to Randomly Pick a Name</title>
+        <meta name="description" content="SpinWheelMaker.com allows you to easily create a wheel of names in order to randomly decide on something. " key="desc" />
+        <meta property="og:title" content="SpinWheelMaker.com | Spin the Wheel to Randomly Pick a Name" />
+        <meta property="og:description" content="SpinWheelMaker.com allows you to easily create a wheel of names in order to randomly decide on something. " />
+        <meta property="og:image" content="../public/images/screenshot.png" />
+        <meta property="og:type" content="website"></meta>
+        <meta name="viewport" content="initial-scale=1,width=device-width"></meta>
+        <meta property="keywords" content="spin the wheel, spinwheelmaker.com, spin the wheel online, wheel decide, deciding wheel, random name picker, random picker wheel, random name picker"></meta>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon-32x32.png" />
+      </Head>
       <div className="container relative mt-12 mb-3 grid grid-cols-1 items-center justify-items-center gap-2 md:grid-cols-2">
         <div className="flex flex-col justify-center">
           <p className="text-center text-2xl font-bold">What to Eat for Lunch?</p>
