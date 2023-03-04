@@ -22,13 +22,13 @@ import WheelIcon from "../public/images/spinwheel-icon-gray.png";
 import ShareIcon from "../public/images/shareIcon.png";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { runConfetti } from "../actions/confetti";
 
 import { Dialog, Popover } from "@headlessui/react";
 
 const SpinWheelContainer = (props) => {
   const router = useRouter();
   const handleWheel = useFullScreenHandle();
-  const handleWinnerPopup = useFullScreenHandle();
 
   const userData = useContext(UserContext);
   const isUserLoggedIn = Object.keys(userData).length != 0 ? true : false;
@@ -78,11 +78,12 @@ const SpinWheelContainer = (props) => {
               ...prevState,
               winner: true,
             }));
-
             setTheWinner(indicatedSegment.text);
+            runConfetti();
+            playCheering();
           },
           callBackAfter: "drawTriangle()",
-          callbackSound: playSound,
+          callbackSound: playTick,
         },
       })
     );
@@ -146,9 +147,16 @@ const SpinWheelContainer = (props) => {
       });
   };
 
-  const playSound = () => {
-    const tickSound = new Audio("../tick.mp3");
+  const playTick = () => {
+    const tickSound = new Audio("./tick.mp3");
+    tickSound.pause();
+    tickSound.currentTime = 0;
     tickSound.play();
+  };
+
+  const playCheering = () => {
+    const cheerSound = new Audio("./cheering.mp3");
+    cheerSound.play();
   };
 
   useEffect(() => {
