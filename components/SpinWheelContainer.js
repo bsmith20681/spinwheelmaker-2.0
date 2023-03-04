@@ -19,10 +19,11 @@ import FullScreenIcon from "../public/images/fullScreenIcon.png";
 import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
 import WheelIcon from "../public/images/spinwheel-icon-gray.png";
+import ShareIcon from "../public/images/shareIcon.png";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-import { Dialog } from "@headlessui/react";
+import { Dialog, Popover } from "@headlessui/react";
 
 const SpinWheelContainer = (props) => {
   const router = useRouter();
@@ -42,6 +43,7 @@ const SpinWheelContainer = (props) => {
   let [theWinner, setTheWinner] = useState("");
   const [title, setTitle] = useState(props.title);
   const [savedURL, setSavedURL] = useState("");
+  const [openPopover, setOpenPopover] = useState(false);
 
   let [wheelSettings, setWheelSettings] = useState({
     spinDuration: 5,
@@ -80,7 +82,7 @@ const SpinWheelContainer = (props) => {
             setTheWinner(indicatedSegment.text);
           },
           callBackAfter: "drawTriangle()",
-          //callbackSound: playSound,
+          callbackSound: playSound,
         },
       })
     );
@@ -142,6 +144,11 @@ const SpinWheelContainer = (props) => {
           position: toast.POSITION.TOP_RIGHT,
         });
       });
+  };
+
+  const playSound = () => {
+    const tickSound = new Audio("../tick.mp3");
+    tickSound.play();
   };
 
   useEffect(() => {
@@ -259,17 +266,41 @@ const SpinWheelContainer = (props) => {
         </div>
       </Dialog>
       <div className="container my-3 flex justify-end">
-        {/*<SubHeaderItem icon={ShareIcon} action="Share" />*/}
-
         {console.log(props.iteration)}
         {props.iteration != 0 ? (
-          <div className="ml-3 flex items-center justify-center rounded-md py-1 px-2 transition duration-150 hover:cursor-pointer hover:bg-gray-100 hover:ease-in" onClick={props.onClick}>
-            <Image className="text-gray-600" src={WheelIcon} />
-            <Link href="/create">
-              <a className="ml-3 text-sm text-neutral-800">Create New Wheel</a>
-            </Link>
-          </div>
+          <Popover className="relative">
+            {({ open }) => (
+              /* Use the `open` state to conditionally change the direction of the chevron icon. */
+              <>
+                <Popover.Button
+                  className="flex items-center"
+                  onClick={() => {
+                    console.log(openPopover);
+                    setOpenPopover(true);
+                  }}
+                >
+                  <SubHeaderItem icon={WheelIcon} action="Create New Wheel" />
+                </Popover.Button>
+
+                <Popover.Panel className="absolute right-0 z-10 w-96 rounded-lg border-2 bg-white py-3 px-6 shadow-lg">
+                  <div className="mb-3 px-1 text-sm">
+                    <p>You are about to leave this page. Do you want to save your wheel first?</p>
+                    <div className="my-3 flex items-center justify-between">
+                      <Link href="/create">
+                        <a className="whitespace-nowrap rounded bg-blue-500 py-2 px-4 text-sm font-bold text-white hover:bg-blue-700">Go to create page</a>
+                      </Link>
+
+                      <button onClick={updateWheel} className="rounded-md border-2 bg-white py-2 px-4 text-center font-semibold text-gray-600 transition hover:bg-gray-300">
+                        Save Wheel
+                      </button>
+                    </div>
+                  </div>
+                </Popover.Panel>
+              </>
+            )}
+          </Popover>
         ) : null}
+        <SubHeaderItem icon={ShareIcon} action="Share" onClick={props.iteration != 0 ? updateWheel : saveWheel} />
         <SubHeaderItem
           icon={FullScreenIcon}
           action="Full Screen"
@@ -287,7 +318,7 @@ const SpinWheelContainer = (props) => {
             }));
           }}
         />
-        <SubHeaderItem onClick={isUserLoggedIn ? saveWheel : updateWheel} icon={SaveIcon} action="Save" />
+        <SubHeaderItem onClick={props.iteration != 0 ? updateWheel : saveWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
       <div className="py-10">
