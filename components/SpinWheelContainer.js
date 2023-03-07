@@ -68,6 +68,7 @@ const SpinWheelContainer = (props) => {
         textFillStyle: "#ffffff",
         strokeStyle: "white",
         lineWidth: 0,
+        responsive: true,
         segments: wheelSettings.segments,
         animation: {
           type: "spinToStop",
@@ -273,7 +274,7 @@ const SpinWheelContainer = (props) => {
           </Dialog.Panel>
         </div>
       </Dialog>
-      <div className="container my-3 flex justify-end">
+      <div className="container my-3 flex flex-wrap justify-end">
         {console.log(props.iteration)}
         {props.iteration != 0 ? (
           <Popover className="relative">
@@ -290,7 +291,7 @@ const SpinWheelContainer = (props) => {
                   <SubHeaderItem icon={WheelIcon} action="Create New Wheel" />
                 </Popover.Button>
 
-                <Popover.Panel className="absolute right-0 z-10 w-96 rounded-lg border-2 bg-white py-3 px-6 shadow-lg">
+                <Popover.Panel className="absolute -right-1/2 z-10 w-96 rounded-lg border-2 bg-white py-3 px-6 shadow-lg">
                   <div className="mb-3 px-1 text-sm">
                     <p>You are about to leave this page. Do you want to save your wheel first?</p>
                     <div className="my-3 flex items-center justify-between">
@@ -331,12 +332,12 @@ const SpinWheelContainer = (props) => {
       <div className="border-b border-gray-200"></div>
       <div className="py-10">
         <div className="container">
-          <div className="grid grid-cols-1 items-center gap-40 md:grid-cols-2">
+          <div className="grid grid-cols-1 items-center gap-40 lg:grid-cols-2">
             <ContentEditable className="mx-auto w-fit p-2 text-center text-2xl font-bold transition hover:cursor-pointer hover:bg-blue-50" html={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
         </div>
 
-        <div className="container my-5 grid grid-cols-1 items-center gap-40 md:grid-cols-2">
+        <div className="container my-5 grid grid-cols-1 items-center lg:grid-cols-2 lg:gap-40">
           <div>
             <FullScreen handle={handleWheel}>
               <div>

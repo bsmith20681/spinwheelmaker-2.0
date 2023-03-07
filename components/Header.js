@@ -50,7 +50,7 @@ const Header = () => {
   return (
     <div>
       <div className="container my-1">
-        <div className="flex items-center justify-between py-3">
+        <div className="flex flex-wrap items-center justify-center py-3 md:justify-between">
           <div>
             <Link href="/">
               <div>
@@ -114,7 +114,7 @@ const Header = () => {
                   Login
                 </button>
 
-                <button onClick={() => setSigninPopup(true)} className="rounded-md bg-blue-600 py-2 px-8 text-center  font-semibold text-white transition hover:bg-blue-700">
+                <button onClick={() => setSigninPopup(true)} className="whitespace-nowrap rounded-md bg-blue-600 py-2 px-8  text-center font-semibold text-white transition hover:bg-blue-700">
                   Sign Up
                 </button>
                 <Dialog open={loginPopup} onClose={() => setLoginPopup(false)} className="relative z-50">
