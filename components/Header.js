@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Popover, Dialog } from "@headlessui/react";
 
 import axios from "axios";
-import { removeCookie } from "../actions/auth";
 
 import SignOut from "../public/images/SignOut.png";
 import UserCircle from "../public/images/UserCircle.png";
@@ -20,18 +19,50 @@ import DefaultProfile from "../public/images/profile_pic.png";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const Header = () => {
-  const userData = useContext(UserContext);
+  const [userObject, setUserObject] = useContext(UserContext);
   const [openPopover, setOpenPopover] = useState(false);
 
   const [loginPopup, setLoginPopup] = useState(false);
   const [signinPopup, setSigninPopup] = useState(false);
 
+  //used to calculate middle of screen with parent window to display SSO screen in the middle
+
+  const fetchUser = () => {
+    axios({
+      method: "GET",
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user`,
+      withCredentials: true,
+    })
+      .then((data) => {
+        setUserObject(data.data.data);
+      })
+      .catch((error) => setUserObject({ isAuth: false }));
+  };
+
   const redirectToGoogleSSO = async () => {
-    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google`, "_self");
+    const newWindow = window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/google`, "_blank", `width=500,height=600,top=50%,left=50%`);
+
+    if (newWindow) {
+      const startInterval = setInterval(() => {
+        if (newWindow.closed) {
+          fetchUser();
+          if (startInterval) clearInterval(startInterval);
+        }
+      }, 500);
+    }
   };
 
   const redirectToFacebookSSO = async () => {
-    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/facebook`, "_self");
+    const newWindow = window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/facebook`, "_blank", `width=500,height=600,top=50%,left=50%`);
+
+    if (newWindow) {
+      const startInterval = setInterval(() => {
+        if (newWindow.closed) {
+          fetchUser();
+          if (startInterval) clearInterval(startInterval);
+        }
+      }, 500);
+    }
   };
 
   const logout = () => {
@@ -59,12 +90,13 @@ const Header = () => {
             </Link>
           </div>
 
-          {console.log(userData)}
+          {console.log("this is the userobject")}
+          {console.log(userObject)}
 
           <div className="flex items-center">
-            {userData.oauthId != null ? (
+            {userObject.isAuth != false ? (
               <>
-                <p className="mr-3">Hello {userData.first_name}!</p>
+                <p className="mr-3">Hello {userObject.first_name}!</p>
 
                 <Popover className="relative">
                   {({ open }) => (
@@ -78,7 +110,7 @@ const Header = () => {
                         }}
                       >
                         {" "}
-                        <Image className="rounded-lg" width={46} height={46} src={userData.picture == null ? DefaultProfile : userData.picture} alt="profile pic" />
+                        <Image className="rounded-lg" width={46} height={46} src={userObject.picture == null ? DefaultProfile : userObject.picture} alt="profile pic" />
                         <ChevronDownIcon className={open ? "w-6 rotate-180 transform" : "w-6"} />
                       </Popover.Button>
 
@@ -120,7 +152,7 @@ const Header = () => {
                 <Dialog open={loginPopup} onClose={() => setLoginPopup(false)} className="relative z-50">
                   <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
                   <div className="fixed inset-0 flex items-center justify-center p-4">
-                    <Dialog.Panel className="mx-auto max-w-md rounded-md bg-white py-6 px-4">
+                    <Dialog.Panel className="mx-auto w-full max-w-lg rounded-md bg-white py-6 px-4">
                       <Dialog.Title>
                         <p className="mb-5">Login</p>
                       </Dialog.Title>
@@ -151,7 +183,7 @@ const Header = () => {
                 <Dialog open={signinPopup} onClose={() => setSigninPopup(false)} className="relative z-50">
                   <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
                   <div className="fixed inset-0 flex items-center justify-center p-4">
-                    <Dialog.Panel className="mx-auto max-w-md rounded-md bg-white py-6 px-4">
+                    <Dialog.Panel className="mx-auto w-full max-w-lg rounded-md bg-white py-6 px-4">
                       <Dialog.Title>
                         <p>Sign Up</p>
                       </Dialog.Title>

@@ -20,6 +20,8 @@ import SaveIcon from "../public/images/saveicon.png";
 import SettingsIcon from "../public/images/settingsIcon.png";
 import WheelIcon from "../public/images/spinwheel-icon-gray.png";
 import ShareIcon from "../public/images/shareIcon.png";
+import Cheering from "../public/cheering.mp3";
+import Ticking from "../public/tick.mp3";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { runConfetti } from "../actions/confetti";
@@ -30,7 +32,8 @@ const SpinWheelContainer = (props) => {
   const router = useRouter();
   const handleWheel = useFullScreenHandle();
 
-  const userData = useContext(UserContext);
+  let userData = useContext(UserContext);
+  userData = userData[0];
   const isUserLoggedIn = Object.keys(userData).length != 0 ? true : false;
 
   let [isOpen, setIsOpen] = useState({
@@ -149,14 +152,14 @@ const SpinWheelContainer = (props) => {
   };
 
   const playTick = () => {
-    const tickSound = new Audio("./tick.mp3");
+    const tickSound = new Audio(Ticking);
     tickSound.pause();
     tickSound.currentTime = 0;
     tickSound.play();
   };
 
   const playCheering = () => {
-    const cheerSound = new Audio("./cheering.mp3");
+    const cheerSound = new Audio(Cheering);
     cheerSound.play();
   };
 
@@ -193,6 +196,9 @@ const SpinWheelContainer = (props) => {
     <>
       {/*The winner is*/}
 
+      {console.log("coming from spin wheel container")}
+      {console.log(userData)}
+
       <Dialog
         open={isOpen.savedURL}
         onClose={() => {
@@ -206,9 +212,9 @@ const SpinWheelContainer = (props) => {
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="mx-auto max-w-md rounded-md bg-white py-6 px-4">
+          <Dialog.Panel className="mx-auto w-full max-w-lg rounded-md bg-white py-6 px-4">
             <Dialog.Title>
-              <p className="text-2xl font-bold">Save this link for later</p>
+              <p className="text-xl font-bold">Save this link for later</p>
 
               <div className="flex items-center rounded-md border-2 border-gray-400 bg-gray-100 p-2">
                 <label htmlFor="email" className="sr-only">
@@ -254,9 +260,9 @@ const SpinWheelContainer = (props) => {
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="mx-auto max-w-sm rounded-md bg-white py-6 px-4">
+          <Dialog.Panel className="mx-auto w-full max-w-lg rounded-md bg-white py-6 px-4">
             <Dialog.Title>
-              <p className="text-2xl font-bold">Settings</p>
+              <p className="text-xl font-bold">Settings</p>
               <p>Spin Duration: {wheelSettings.spinDuration}s</p>
               <input
                 type="range"
@@ -275,8 +281,7 @@ const SpinWheelContainer = (props) => {
         </div>
       </Dialog>
       <div className="container my-3 flex flex-wrap justify-end">
-        {console.log(props.iteration)}
-        {props.iteration != 0 ? (
+        {router.pathname != "/create" ? (
           <Popover className="relative">
             {({ open }) => (
               /* Use the `open` state to conditionally change the direction of the chevron icon. */
@@ -309,7 +314,7 @@ const SpinWheelContainer = (props) => {
             )}
           </Popover>
         ) : null}
-        <SubHeaderItem icon={ShareIcon} action="Share" onClick={props.iteration != 0 ? updateWheel : saveWheel} />
+        <SubHeaderItem icon={ShareIcon} action="Share" onClick={router.pathname != "/create" ? updateWheel : saveWheel} />
         <SubHeaderItem
           icon={FullScreenIcon}
           action="Full Screen"
@@ -327,7 +332,7 @@ const SpinWheelContainer = (props) => {
             }));
           }}
         />
-        <SubHeaderItem onClick={props.iteration != 0 ? updateWheel : saveWheel} icon={SaveIcon} action="Save" />
+        <SubHeaderItem onClick={router.pathname != "/create" ? updateWheel : saveWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
       <div className="py-10">
@@ -344,9 +349,9 @@ const SpinWheelContainer = (props) => {
                 {/*  Using custom modal instead of headless because in order for it to appear on fullscreen mode it the jsx cannot be dynamically populated*/}
 
                 <div className={isOpen.winner ? "fixed z-20" : "hidden"}>
-                  <div className="fixed top-1/2 left-1/2 z-30 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-md bg-white py-6 px-4">
-                    <p className="text-2xl font-bold">The winner is...</p>
-                    <p className="text-2xl font-bold">{theWinner}</p>
+                  <div className="fixed top-1/2 left-1/2 z-30 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 transform rounded-md bg-white py-6 px-4">
+                    <p className="mb-5 text-xl font-bold">The winner is...</p>
+                    <p className="text-center text-2xl font-bold">🎉{theWinner}🎉</p>
                   </div>
                   <div
                     onClick={() => {

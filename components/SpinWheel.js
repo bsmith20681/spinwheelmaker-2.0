@@ -11,9 +11,9 @@ const SpinWheel = ({ spinTheWheel }) => {
     <div className="relative mb-5 flex  items-center justify-center bg-white  md:mb-0">
       <canvas
         style={{ shadowBlur: 20, shadowOffsetX: "20" }}
-        data-responsiveMinWidth="180"
-        data-responsiveScaleHeight="true" /* Optional Parameters */
-        data-responsiveMargin="80"
+        data-responsiveminmidth="180"
+        data-responsivescaleheight="true" /* Optional Parameters */
+        data-responsivemargin="80"
         onClick={spinTheWheel}
         width="700"
         height="700"

@@ -1,8 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-import Cookies from "js-cookie";
-
 export const UserContext = createContext({});
 
 export default function Context({ children }) {
@@ -20,5 +18,5 @@ export default function Context({ children }) {
       .catch((error) => setUserObject({ isAuth: false }));
   }, []);
 
-  return <UserContext.Provider value={userObject}>{userObject ? children : false}</UserContext.Provider>;
+  return <UserContext.Provider value={[userObject, setUserObject]}>{userObject ? children : false}</UserContext.Provider>;
 }
