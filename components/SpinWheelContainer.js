@@ -49,8 +49,10 @@ const SpinWheelContainer = (props) => {
   const [openPopover, setOpenPopover] = useState(false);
 
   let [wheelSettings, setWheelSettings] = useState({
-    spinDuration: 5,
+    spinDuration: props.spinDuration,
     numOfSpins: 5,
+    confettiOn: props.confettiOn,
+    soundOn: props.soundOn,
     segments: props.segments,
   });
 
@@ -83,8 +85,13 @@ const SpinWheelContainer = (props) => {
               winner: true,
             }));
             setTheWinner(indicatedSegment.text);
-            runConfetti();
-            playCheering();
+            if (wheelSettings.confettiOn) {
+              runConfetti();
+            }
+
+            if (wheelSettings.soundOn) {
+              playCheering();
+            }
           },
           callBackAfter: "drawTriangle()",
           callbackSound: playTick,
@@ -99,6 +106,7 @@ const SpinWheelContainer = (props) => {
         shortID: props.shortID,
         iteration: [{ title: title, segments: wheelSettings.segments }],
         user: userData._id ? userData._id : null,
+        settings: { spinDuration: wheelSettings.spinDuration, soundOn: wheelSettings.soundOn, confettiOn: wheelSettings.confettiOn },
       })
       .then((data) => {
         console.log("response from server");
@@ -128,6 +136,7 @@ const SpinWheelContainer = (props) => {
         shortID: props.shortID,
         iteration: { title: title, segments: wheelSettings.segments },
         user: userData._id ? userData._id : null,
+        settings: { spinDuration: wheelSettings.spinDuration, soundOn: wheelSettings.soundOn, confettiOn: wheelSettings.confettiOn },
       })
       .then((data) => {
         console.log("response from server");
@@ -152,10 +161,14 @@ const SpinWheelContainer = (props) => {
   };
 
   const playTick = () => {
-    const tickSound = new Audio(Ticking);
-    tickSound.pause();
-    tickSound.currentTime = 0;
-    tickSound.play();
+    if (wheelSettings.soundOn) {
+      const tickSound = new Audio(Ticking);
+      tickSound.pause();
+      tickSound.currentTime = 0;
+      tickSound.play();
+    } else {
+      return null;
+    }
   };
 
   const playCheering = () => {
@@ -262,7 +275,38 @@ const SpinWheelContainer = (props) => {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="mx-auto w-full max-w-lg rounded-md bg-white py-6 px-4">
             <Dialog.Title>
-              <p className="text-xl font-bold">Settings</p>
+              <p className="mb-5 text-xl font-bold">Settings</p>
+            </Dialog.Title>
+
+            <div className="my-3 flex items-center">
+              <p className="mr-3">Confetti On:</p>
+              <input
+                value={wheelSettings.confettiOn}
+                onChange={() =>
+                  setWheelSettings((prevState) => ({
+                    ...prevState,
+                    confettiOn: !wheelSettings.confettiOn,
+                  }))
+                }
+                type="checkbox"
+                checked={wheelSettings.confettiOn}
+              />
+            </div>
+            <div className="my-3 flex items-center">
+              <p className="mr-3">Sounds On:</p>
+              <input
+                value={wheelSettings.soundOn}
+                onChange={() =>
+                  setWheelSettings((prevState) => ({
+                    ...prevState,
+                    soundOn: !wheelSettings.soundOn,
+                  }))
+                }
+                type="checkbox"
+                checked={wheelSettings.soundOn}
+              />
+            </div>
+            <div className="my-3">
               <p>Spin Duration: {wheelSettings.spinDuration}s</p>
               <input
                 type="range"
@@ -276,8 +320,9 @@ const SpinWheelContainer = (props) => {
                 min="1"
                 max="11"
               />
-            </Dialog.Title>
+            </div>
           </Dialog.Panel>
+          {console.log(wheelSettings)}
         </div>
       </Dialog>
       <div className="container my-3 flex flex-wrap justify-end">

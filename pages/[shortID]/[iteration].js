@@ -50,7 +50,15 @@ const ViewWheel = () => {
         <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon-32x32.png" />
       </Head>
-      <SpinWheelContainer segments={response.iteration.at(-1).segments} iteration={response.iteration.at(-1) + 1} shortID={response.shortID} title={response.iteration.at(-1).title} />
+      <SpinWheelContainer
+        segments={response.iteration.at(-1).segments}
+        iteration={response.iteration.at(-1) + 1}
+        shortID={response.shortID}
+        title={response.iteration.at(-1).title}
+        spinDuration={response.settings.spinDuration}
+        confettiOn={response.settings.confettiOn}
+        soundOn={response.settings.soundOn}
+      />
     </Layout>
   );
 };

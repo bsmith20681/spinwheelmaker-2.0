@@ -32,6 +32,9 @@ const Create = () => {
         title="What to eat for Lunch?"
         shortID={nanoid(11)}
         iteration={0}
+        spinDuration={5}
+        confettiOn={true}
+        soundOn={true}
       />
     </Layout>
   );

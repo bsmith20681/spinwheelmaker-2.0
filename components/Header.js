@@ -115,20 +115,22 @@ const Header = () => {
                       </Popover.Button>
 
                       <Popover.Panel className="absolute right-0 z-10 w-64 rounded-lg bg-white py-3 px-6 shadow-lg">
-                        <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
-                          <Image src={UserCircle} alt="user account" />
-                          <Link href="/account">
+                        <Link href="/account">
+                          <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
+                            <Image src={UserCircle} alt="user account" />
+
                             <a className="ml-3">Account</a>
-                          </Link>
-                        </div>
-                        <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
-                          <div className="flex w-5 items-center">
-                            <Image src={WheelIcon} alt="create new wheel" />
                           </div>
-                          <Link href="/create">
+                        </Link>
+                        <Link href="/create">
+                          <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
+                            <div className="flex w-5 items-center">
+                              <Image src={WheelIcon} alt="create new wheel" />
+                            </div>
+
                             <a className="ml-3">Create New Wheel</a>
-                          </Link>
-                        </div>
+                          </div>
+                        </Link>
                         <div className="flex items-center px-1  hover:cursor-pointer hover:bg-gray-100" onClick={logout}>
                           <Image src={SignOut} alt="log out" />
                           <p className="ml-3" href="/automations">
