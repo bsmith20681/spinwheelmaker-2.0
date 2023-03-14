@@ -42,9 +42,9 @@ const Account = () => {
     <Layout>
       <div className="container my-6 rounded-md bg-blue-100 p-10">
         <div className="grid grid-cols-6 gap-4">
-          {response.map((item) => {
+          {response.map((item, index) => {
             return (
-              <Link href={`${item.shortID}/${item.iteration.length}`}>
+              <Link key={index} href={`${item.shortID}/${item.iteration.length}`} passHref>
                 <div className="rounded-md p-2 transition hover:cursor-pointer hover:bg-blue-300">
                   <div className="flex justify-center rounded-md bg-white p-4">
                     <Image src={SpinWheelThumbnail} alt="thumbnail" width={125} height={125} />

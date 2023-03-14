@@ -50,16 +50,16 @@ const TermsAndConditions = () => {
         </p>
         <h2 className="my-4 text-xl font-semibold">Your Content</h2>
         <p className="my-4">
-          In these Website Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant spinwheelmaker.com a non-exclusive, worldwide
-          irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.
+          {`In these Website Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant spinwheelmaker.com a non-exclusive, worldwide
+          irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.`}
         </p>
         <p className="my-4">Your Content must be your own and must not be invading any third-party’s rights. spinwheelmaker.com reserves the right to remove any of Your Content from this Website at any time without notice.</p>
         <h2 className="my-4 text-xl font-semibold">Your Privacy</h2>
         <p className="my-4">Please read Privacy Policy.</p>
         <h2 className="my-4 text-xl font-semibold">No warranties</h2>
         <p className="my-4">
-          This Website is provided "as is," with all faults, and spinwheelmaker.com express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be
-          interpreted as advising you.
+          {` This Website is provided "as is," with all faults, and spinwheelmaker.com express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be
+          interpreted as advising you.`}
         </p>
         <h2 className="my-4 text-xl font-semibold">Limitation of liability</h2>
         <p className="my-4">

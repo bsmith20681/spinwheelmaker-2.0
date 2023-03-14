@@ -12,6 +12,7 @@ import MysteryIcon from "../public/images/mystery.png";
 import RandomNumberIcon from "../public/images/number.png";
 import GiveAwayIcon from "../public/images/giveaway.png";
 import RandomNamePicker from "../public/images/name.png";
+import TryItOut from "../public/images/try-it-out.png";
 
 import { PlusCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
 
@@ -38,7 +39,10 @@ export default function Home() {
           <p className="text-center text-2xl font-bold">What to Eat for Lunch?</p>
           <Image src={SpinWheelImage} alt="spin the wheel" />
         </div>
-        <img className="absolute z-10 md:top-1/2 md:left-1/2" src="../images/try-it-out.png" />
+
+        <div className="absolute z-10 md:top-1/2 md:left-1/2">
+          <Image alt="try it out" src={TryItOut} />
+        </div>
         <div className="flex items-center">
           <div className="relative">
             <Image src={Inputs} alt="inputs for spin wheel" />
@@ -170,8 +174,8 @@ export default function Home() {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className="mt-4 text-gray-500">
-                    You can easily start creating a spinwheel by clicking the edit button near the top of the homepage. From there you will be able to edit the inputs of your spinwheel and save it for later. Once you are ready to decide, you click on the wheel
-                    and let it work it's magic!
+                    {`You can easily start creating a spinwheel by clicking the edit button near the top of the homepage. From there you will be able to edit the inputs of your spinwheel and save it for later. Once you are ready to decide, you click on the wheel
+                    and let it work it's magic!`}
                   </Disclosure.Panel>
                 </Transition>
               </div>
@@ -193,7 +197,7 @@ export default function Home() {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className="mt-4 text-gray-500">
-                    Never! We believe in unbiasedly selecting a winner. Our algorithm is powered by JavaScript's Random method. So rest assured in knowing that whatever winner it picks is completely random.
+                    {` Never! We believe in unbiasedly selecting a winner. Our algorithm is powered by JavaScript's Random method. So rest assured in knowing that whatever winner it picks is completely random.`}
                   </Disclosure.Panel>
                 </Transition>
               </div>

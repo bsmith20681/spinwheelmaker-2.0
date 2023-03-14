@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import Link from "next/link";
+import Script from "next/script";
+
 import Image from "next/image";
 
 import ContentEditable from "react-contenteditable";
@@ -55,50 +57,6 @@ const SpinWheelContainer = (props) => {
     soundOn: props.soundOn,
     segments: props.segments,
   });
-
-  let createTheWheel = () => {
-    if (wheelSettings.segments.length == 0) {
-      setWheelSettings((prevState) => ({
-        ...prevState,
-        segments: [{ id: "0", fillStyle: "#D2D4D7", text: "Item One" }],
-      }));
-    }
-    setTheWheel(
-      new Winwheel({
-        canvasId: "wheel",
-        responsive: true,
-        pointerAngle: 90,
-        numSegments: wheelSettings.segments.length,
-        textFontSize: 28,
-        textFillStyle: "#ffffff",
-        strokeStyle: "white",
-        lineWidth: 0,
-        responsive: true,
-        segments: wheelSettings.segments,
-        animation: {
-          type: "spinToStop",
-          duration: wheelSettings.spinDuration,
-          spins: wheelSettings.numOfSpins,
-          callbackFinished: (indicatedSegment) => {
-            setIsOpen((prevState) => ({
-              ...prevState,
-              winner: true,
-            }));
-            setTheWinner(indicatedSegment.text);
-            if (wheelSettings.confettiOn) {
-              runConfetti();
-            }
-
-            if (wheelSettings.soundOn) {
-              playCheering();
-            }
-          },
-          callBackAfter: "drawTriangle()",
-          callbackSound: playTick,
-        },
-      })
-    );
-  };
 
   const saveWheel = () => {
     axios
@@ -176,6 +134,50 @@ const SpinWheelContainer = (props) => {
     cheerSound.play();
   };
 
+  let createTheWheel = () => {
+    if (wheelSettings.segments.length == 0) {
+      setWheelSettings((prevState) => ({
+        ...prevState,
+        segments: [{ id: "0", fillStyle: "#D2D4D7", text: "Item One" }],
+      }));
+    }
+    setTheWheel(
+      new Winwheel({
+        canvasId: "wheel",
+        responsive: true,
+        pointerAngle: 90,
+        numSegments: wheelSettings.segments.length,
+        textFontSize: 28,
+        textFillStyle: "#ffffff",
+        strokeStyle: "white",
+        lineWidth: 0,
+        responsive: true,
+        segments: wheelSettings.segments,
+        animation: {
+          type: "spinToStop",
+          duration: wheelSettings.spinDuration,
+          spins: wheelSettings.numOfSpins,
+          callbackFinished: (indicatedSegment) => {
+            setIsOpen((prevState) => ({
+              ...prevState,
+              winner: true,
+            }));
+            setTheWinner(indicatedSegment.text);
+            if (wheelSettings.confettiOn) {
+              runConfetti();
+            }
+
+            if (wheelSettings.soundOn) {
+              playCheering();
+            }
+          },
+          callBackAfter: "drawTriangle()",
+          callbackSound: playTick,
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     createTheWheel();
   }, [wheelSettings]);
@@ -208,10 +210,8 @@ const SpinWheelContainer = (props) => {
   return (
     <>
       {/*The winner is*/}
-
       {console.log("coming from spin wheel container")}
       {console.log(userData)}
-
       <Dialog
         open={isOpen.savedURL}
         onClose={() => {
@@ -259,7 +259,6 @@ const SpinWheelContainer = (props) => {
         </div>
       </Dialog>
       {/*saved url pop up*/}
-
       {/*settings pop up*/}
       <Dialog
         open={isOpen.settings}
@@ -338,7 +337,7 @@ const SpinWheelContainer = (props) => {
                     setOpenPopover(true);
                   }}
                 >
-                  <SubHeaderItem icon={WheelIcon} action="Create New Wheel" />
+                  <SubHeaderItem alt="create new wheel" icon={WheelIcon} action="Create New Wheel" />
                 </Popover.Button>
 
                 <Popover.Panel className="absolute -right-1/2 z-10 w-96 rounded-lg border-2 bg-white py-3 px-6 shadow-lg">
@@ -359,8 +358,9 @@ const SpinWheelContainer = (props) => {
             )}
           </Popover>
         ) : null}
-        <SubHeaderItem icon={ShareIcon} action="Share" onClick={router.pathname != "/create" ? updateWheel : saveWheel} />
+        <SubHeaderItem alt="save wheel" icon={ShareIcon} action="Share" onClick={router.pathname != "/create" ? updateWheel : saveWheel} />
         <SubHeaderItem
+          alt="go full size"
           icon={FullScreenIcon}
           action="Full Screen"
           onClick={() => {
@@ -368,6 +368,7 @@ const SpinWheelContainer = (props) => {
           }}
         />
         <SubHeaderItem
+          alt="edit settings"
           icon={SettingsIcon}
           action="Settings"
           onClick={() => {
@@ -377,14 +378,19 @@ const SpinWheelContainer = (props) => {
             }));
           }}
         />
-        <SubHeaderItem onClick={router.pathname != "/create" ? updateWheel : saveWheel} icon={SaveIcon} action="Save" />
+        <SubHeaderItem alt="update wheel" onClick={router.pathname != "/create" ? updateWheel : saveWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
-      <div className="py-10">
-        <div className="container">
-          <div className="grid grid-cols-1 items-center gap-40 lg:grid-cols-2">
-            <ContentEditable className="mx-auto w-fit p-2 text-center text-2xl font-bold transition hover:cursor-pointer hover:bg-blue-50" html={title} onChange={(e) => setTitle(e.target.value)} />
-          </div>
+
+      <div className="container py-3">
+        {/*Ezoic - top_of_page - top_of_page*/}
+        <div id="ezoic-pub-ad-placeholder-114"></div>
+        {/*End Ezoic - top_of_page - top_of_page */}
+      </div>
+
+      <div className="container py-10">
+        <div className="grid grid-cols-1 items-center gap-40 lg:grid-cols-2">
+          <ContentEditable className="mx-auto w-fit p-2 text-center text-2xl font-bold transition hover:cursor-pointer hover:bg-blue-50" html={title} onChange={(e) => setTitle(e.target.value)} />
         </div>
 
         <div className="container my-5 grid grid-cols-1 items-center lg:grid-cols-2 lg:gap-40">
@@ -438,7 +444,12 @@ const SpinWheelContainer = (props) => {
           </div>
         </div>
       </div>
+      {/*Ezoic - bottom_of_page - bottom_of_page*/}
+      <div id="ezoic-pub-ad-placeholder-113"> </div>
+      {/* End Ezoic - bottom_of_page - bottom_of_page */}
       <ToastContainer />
+      <Script strategy="afterInteractive">{`var ezoicId = 322222;`}</Script>
+      <Script id="ezoic-script" strategy="afterInteractive" src="//go.ezoic.net/ezoic/ezoic.js"></Script>
     </>
   );
 };

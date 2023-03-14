@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import DropShadowBackground from "../public/images/wheel-drop-shadow.png";
 
 import useScript from "../hooks/useScript";
+import Image from "next/image";
+import Pointer from "../public/images/pointer.png";
 
 const SpinWheel = ({ spinTheWheel }) => {
   useScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js");
@@ -21,7 +23,9 @@ const SpinWheel = ({ spinTheWheel }) => {
         className="w-full max-w-5xl cursor-pointer bg-cover bg-center  md:p-9"
       ></canvas>
 
-      <img onClick={spinTheWheel} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform cursor-pointer" src="../images/pointer.png" alt="pointer" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform cursor-pointer">
+        <Image onClick={spinTheWheel} src={Pointer} alt="pointer" />
+      </div>
     </div>
   );
 };

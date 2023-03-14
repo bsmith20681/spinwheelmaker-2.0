@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import Head from "next/head";
 import SpinWheelContainer from "../components/SpinWheelContainer";
 import { nanoid } from "nanoid";
+import Script from "next/script";
 
 const Create = () => {
   return (

@@ -83,15 +83,12 @@ const Header = () => {
       <div className="container my-1">
         <div className="flex flex-wrap items-center justify-center py-3 md:justify-between">
           <div>
-            <Link href="/">
+            <Link href="/" passHref>
               <div>
                 <Image className="hover:cursor-pointer" src={Logo} alt="logo" />
               </div>
             </Link>
           </div>
-
-          {console.log("this is the userobject")}
-          {console.log(userObject)}
 
           <div className="flex items-center">
             {userObject.isAuth != false ? (
@@ -115,14 +112,14 @@ const Header = () => {
                       </Popover.Button>
 
                       <Popover.Panel className="absolute right-0 z-10 w-64 rounded-lg bg-white py-3 px-6 shadow-lg">
-                        <Link href="/account">
+                        <Link href="/account" passHref>
                           <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
                             <Image src={UserCircle} alt="user account" />
 
                             <a className="ml-3">Account</a>
                           </div>
                         </Link>
-                        <Link href="/create">
+                        <Link href="/create" passHref>
                           <div className="mb-3 flex items-center px-1  hover:cursor-pointer hover:bg-gray-100">
                             <div className="flex w-5 items-center">
                               <Image src={WheelIcon} alt="create new wheel" />

@@ -13,6 +13,11 @@ const Footer = () => {
             </Link>
           </div>
           <div className="px-5">
+            <Link href="/updates">
+              <a className="text-base text-gray-400 hover:text-gray-600">Updates</a>
+            </Link>
+          </div>
+          <div className="px-5">
             <Link href="/privacy-policy">
               <a className="text-base text-gray-400 hover:text-gray-600">Privacy Policy</a>
             </Link>

@@ -17,10 +17,10 @@ const PrivacyPolicy = () => {
         <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon-32x32.png" />
       </Head>
-      <div class="container">
+      <div className="container">
         <h1 className="my-4 text-2xl font-semibold">Privacy Policy</h1>
         <p className="my-4">
-          Your privacy is important to us. It is spinwheelmaker.com's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you, including across our website,
+          {`Your privacy is important to us. It is spinwheelmaker.com's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you, including across our website,`}
           <a href="https://spinwheelmaker.com/">https://spinwheelmaker.com/</a>, and other sites we own and operate.
         </p>
         <p className="my-4">This policy is effective as of 10 April 2021 and was last updated on 10 April 2021.</p>
