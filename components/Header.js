@@ -102,7 +102,6 @@ const Header = () => {
                       <Popover.Button
                         className="flex items-center"
                         onClick={() => {
-                          console.log(openPopover);
                           setOpenPopover(true);
                         }}
                       >

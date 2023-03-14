@@ -27,6 +27,7 @@
     "react-id-generator": "^3.0.2",
     "react-no-ssr": "^1.1.0",
     "react-toastify": "^9.1.1",
+    "sharp": "^0.31.3",
     "winwheel": "^1.0.1"
   },
   "devDependencies": {

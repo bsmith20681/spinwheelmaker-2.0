@@ -25,7 +25,6 @@ const Account = () => {
       .then((data) => {
         setResponse(data.data.data);
         setLoading(false);
-        console.log(data.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -51,8 +50,7 @@ const Account = () => {
                   </div>
                   <div className="my-3 flex items-center">
                     <Image src={EditIcon} alt="edit icon" width={20} height={20} />
-                    {console.log("testing")}
-                    {console.log(item.iteration.at(-1) != null ? item.iteration.at(-1).title : "")}
+
                     <p className="ml-3">{item.iteration.at(-1) != null ? item.iteration.at(-1).title : ""}</p>
                   </div>
                   <div className="my-3">

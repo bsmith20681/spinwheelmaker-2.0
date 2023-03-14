@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserContext";
 import Link from "next/link";
 import Script from "next/script";
@@ -67,8 +67,6 @@ const SpinWheelContainer = (props) => {
         settings: { spinDuration: wheelSettings.spinDuration, soundOn: wheelSettings.soundOn, confettiOn: wheelSettings.confettiOn },
       })
       .then((data) => {
-        console.log("response from server");
-        console.log(data);
         toast.success("Your Wheel Has Been Saved!", {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -81,7 +79,6 @@ const SpinWheelContainer = (props) => {
         }));
       })
       .catch((err) => {
-        console.log(err);
         toast.error("Something Went Wrong", {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -97,8 +94,6 @@ const SpinWheelContainer = (props) => {
         settings: { spinDuration: wheelSettings.spinDuration, soundOn: wheelSettings.soundOn, confettiOn: wheelSettings.confettiOn },
       })
       .then((data) => {
-        console.log("response from server");
-        console.log(data);
         toast.success("Your Wheel Has Been Saved!", {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -134,7 +129,7 @@ const SpinWheelContainer = (props) => {
     cheerSound.play();
   };
 
-  let createTheWheel = () => {
+  let createTheWheel = useCallback(() => {
     if (wheelSettings.segments.length == 0) {
       setWheelSettings((prevState) => ({
         ...prevState,
@@ -176,7 +171,7 @@ const SpinWheelContainer = (props) => {
         },
       })
     );
-  };
+  }, [wheelSettings, playTick]);
 
   useEffect(() => {
     createTheWheel();
@@ -209,9 +204,6 @@ const SpinWheelContainer = (props) => {
 
   return (
     <>
-      {/*The winner is*/}
-      {console.log("coming from spin wheel container")}
-      {console.log(userData)}
       <Dialog
         open={isOpen.savedURL}
         onClose={() => {
@@ -321,7 +313,6 @@ const SpinWheelContainer = (props) => {
               />
             </div>
           </Dialog.Panel>
-          {console.log(wheelSettings)}
         </div>
       </Dialog>
       <div className="container my-3 flex flex-wrap justify-end">
@@ -333,7 +324,6 @@ const SpinWheelContainer = (props) => {
                 <Popover.Button
                   className="flex items-center"
                   onClick={() => {
-                    console.log(openPopover);
                     setOpenPopover(true);
                   }}
                 >
@@ -448,8 +438,8 @@ const SpinWheelContainer = (props) => {
       <div id="ezoic-pub-ad-placeholder-113"> </div>
       {/* End Ezoic - bottom_of_page - bottom_of_page */}
       <ToastContainer />
-      <Script strategy="afterInteractive">{`var ezoicId = 322222;`}</Script>
-      <Script id="ezoic-script" strategy="afterInteractive" src="//go.ezoic.net/ezoic/ezoic.js"></Script>
+      <Script id="ezoic-script-1" strategy="afterInteractive">{`var ezoicId = 322222;`}</Script>
+      <Script id="ezoic-script-2" strategy="afterInteractive" src="//go.ezoic.net/ezoic/ezoic.js"></Script>
     </>
   );
 };

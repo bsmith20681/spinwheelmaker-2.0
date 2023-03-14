@@ -260,8 +260,4 @@ export const runConfetti = () => {
 
     if (!onlyOnKonami) poof();
   });
-
-  function click(e) {
-    console.log("hi");
-  }
 };
