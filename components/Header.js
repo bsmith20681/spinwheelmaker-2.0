@@ -167,12 +167,12 @@ const Header = () => {
                           </div>
                           <p className="flex w-36 justify-start">Login with Facebook</p>
                         </button>
-                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                        {/*                     <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
                           <div className="mr-4 flex items-center">
                             <Image width={25} height={25} src={TwitterLogo} alt="google Logo" />
                           </div>
                           <p className="flex w-36 justify-start">Login with Twitter</p>
-                        </button>
+            </button> */}
                       </div>
                     </Dialog.Panel>
                   </div>
@@ -198,12 +198,12 @@ const Header = () => {
                           </div>
                           <p className="flex w-40 justify-start">Signup with Facebook</p>
                         </button>
-                        <button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                        {/*<button onClick={redirectToGoogleSSO} className="mb-5 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
                           <div className="mr-4 flex items-center">
                             <Image width={25} height={25} src={TwitterLogo} alt="google Logo" />
                           </div>
                           <p className="flex w-40 justify-start">Signup with Twitter</p>
-                        </button>
+          </button>*/}
                       </div>
                     </Dialog.Panel>
                   </div>

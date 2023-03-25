@@ -129,6 +129,7 @@ const SpinWheelContainer = (props) => {
     cheerSound.play();
   };
 
+  /*
   let createTheWheel = useCallback(() => {
     if (wheelSettings.segments.length == 0) {
       setWheelSettings((prevState) => ({
@@ -172,6 +173,52 @@ const SpinWheelContainer = (props) => {
       })
     );
   }, [wheelSettings, playTick]);
+
+  */
+
+  let createTheWheel = () => {
+    if (wheelSettings.segments.length == 0) {
+      setWheelSettings((prevState) => ({
+        ...prevState,
+        segments: [{ id: "0", fillStyle: "#D2D4D7", text: "Item One" }],
+      }));
+    }
+    setTheWheel(
+      new Winwheel({
+        canvasId: "wheel",
+        responsive: true,
+        pointerAngle: 90,
+        numSegments: wheelSettings.segments.length,
+        textFontSize: 28,
+        textFillStyle: "#ffffff",
+        strokeStyle: "white",
+        lineWidth: 0,
+        responsive: true,
+        segments: wheelSettings.segments,
+        animation: {
+          type: "spinToStop",
+          duration: wheelSettings.spinDuration,
+          spins: wheelSettings.numOfSpins,
+          callbackFinished: (indicatedSegment) => {
+            setIsOpen((prevState) => ({
+              ...prevState,
+              winner: true,
+            }));
+            setTheWinner(indicatedSegment.text);
+            if (wheelSettings.confettiOn) {
+              runConfetti();
+            }
+
+            if (wheelSettings.soundOn) {
+              playCheering();
+            }
+          },
+          callBackAfter: "drawTriangle()",
+          callbackSound: playTick,
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     createTheWheel();
@@ -371,13 +418,11 @@ const SpinWheelContainer = (props) => {
         <SubHeaderItem alt="update wheel" onClick={router.pathname != "/create" ? updateWheel : saveWheel} icon={SaveIcon} action="Save" />
       </div>
       <div className="border-b border-gray-200"></div>
-
       <div className="container py-3">
         {/*Ezoic - top_of_page - top_of_page*/}
         <div id="ezoic-pub-ad-placeholder-114"></div>
         {/*End Ezoic - top_of_page - top_of_page */}
       </div>
-
       <div className="container py-10">
         <div className="grid grid-cols-1 items-center gap-40 lg:grid-cols-2">
           <ContentEditable className="mx-auto w-fit p-2 text-center text-2xl font-bold transition hover:cursor-pointer hover:bg-blue-50" html={title} onChange={(e) => setTitle(e.target.value)} />
@@ -437,9 +482,8 @@ const SpinWheelContainer = (props) => {
       {/*Ezoic - bottom_of_page - bottom_of_page*/}
       <div id="ezoic-pub-ad-placeholder-113"> </div>
       {/* End Ezoic - bottom_of_page - bottom_of_page */}
+
       <ToastContainer />
-      <Script id="ezoic-script-1" strategy="afterInteractive">{`var ezoicId = 322222;`}</Script>
-      <Script id="ezoic-script-2" strategy="afterInteractive" src="//go.ezoic.net/ezoic/ezoic.js"></Script>
     </>
   );
 };

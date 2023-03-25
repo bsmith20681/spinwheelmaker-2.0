@@ -4,7 +4,7 @@ import axios from "axios";
 export const UserContext = createContext({});
 
 export default function Context({ children }) {
-  const [userObject, setUserObject] = useState({});
+  const [userObject, setUserObject] = useState(null);
 
   useEffect(() => {
     axios({

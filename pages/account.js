@@ -16,20 +16,24 @@ const Account = () => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel/allusercreated`,
-      withCredentials: true,
-    })
-      .then((data) => {
-        setResponse(data.data.data);
-        setLoading(false);
+  useEffect(async () => {
+    if (userData[0]._id != null) {
+      axios({
+        method: "GET",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/spinwheel/allusercreated`,
+        withCredentials: true,
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+        .then((data) => {
+          setResponse(data.data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          router.push("/");
+        });
+    } else {
+      console.log("router push");
+    }
+  }, [userData]);
 
   return loading ? (
     <Layout>

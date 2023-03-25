@@ -37,6 +37,7 @@ const Create = () => {
         confettiOn={true}
         soundOn={true}
       />
+      <Script id="ezoic-script-1" strategy="afterInteractive">{`var ezoicId = 322222;`}</Script>
     </Layout>
   );
 };
