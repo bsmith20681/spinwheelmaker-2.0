@@ -3,7 +3,7 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import saveForLater from "../public/images/save-for-later.png";
-import Inputs from "../public/images/inputs.png";
+import Inputs from "../public/images/inputs.jpg";
 import shareWithEveryone from "../public/images/share-with-everyone.png";
 import customizeWheel from "../public/images/customize-wheel.png";
 import SpinWheelImage from "../public/images/spinwheel-home-2.png";
