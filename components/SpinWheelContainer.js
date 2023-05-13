@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState, useContext, useCallback } from "react";
+import { useImmer } from "use-immer";
 import { UserContext } from "../context/UserContext";
 import Link from "next/link";
 import Script from "next/script";
@@ -50,7 +51,7 @@ const SpinWheelContainer = (props) => {
   const [savedURL, setSavedURL] = useState("");
   const [openPopover, setOpenPopover] = useState(false);
 
-  let [wheelSettings, setWheelSettings] = useState({
+  let [wheelSettings, setWheelSettings] = useImmer({
     spinDuration: props.spinDuration,
     numOfSpins: 5,
     confettiOn: props.confettiOn,
@@ -129,53 +130,6 @@ const SpinWheelContainer = (props) => {
     cheerSound.play();
   };
 
-  /*
-  let createTheWheel = useCallback(() => {
-    if (wheelSettings.segments.length == 0) {
-      setWheelSettings((prevState) => ({
-        ...prevState,
-        segments: [{ id: "0", fillStyle: "#D2D4D7", text: "Item One" }],
-      }));
-    }
-    setTheWheel(
-      new Winwheel({
-        canvasId: "wheel",
-        responsive: true,
-        pointerAngle: 90,
-        numSegments: wheelSettings.segments.length,
-        textFontSize: 28,
-        textFillStyle: "#ffffff",
-        strokeStyle: "white",
-        lineWidth: 0,
-        responsive: true,
-        segments: wheelSettings.segments,
-        animation: {
-          type: "spinToStop",
-          duration: wheelSettings.spinDuration,
-          spins: wheelSettings.numOfSpins,
-          callbackFinished: (indicatedSegment) => {
-            setIsOpen((prevState) => ({
-              ...prevState,
-              winner: true,
-            }));
-            setTheWinner(indicatedSegment.text);
-            if (wheelSettings.confettiOn) {
-              runConfetti();
-            }
-
-            if (wheelSettings.soundOn) {
-              playCheering();
-            }
-          },
-          callBackAfter: "drawTriangle()",
-          callbackSound: playTick,
-        },
-      })
-    );
-  }, [wheelSettings, playTick]);
-
-  */
-
   let createTheWheel = () => {
     if (wheelSettings.segments.length == 0) {
       setWheelSettings((prevState) => ({
@@ -236,17 +190,43 @@ const SpinWheelContainer = (props) => {
     }));
   };
 
-  const handleDeleteItem = (e) => {
-    const findItemToDelete = wheelSettings.segments.findIndex((object) => {
-      return object.id === e.currentTarget.id;
+  const handleDeleteItem = (e, index) => {
+    const updateChange = wheelSettings.segments.filter((item, index) => {
+      return e.target.id != index;
     });
-
-    wheelSettings.segments.splice(findItemToDelete, 1);
 
     setWheelSettings((prevState) => ({
       ...prevState,
-      segments: wheelSettings.segments,
+      segments: updateChange,
     }));
+  };
+
+  const handleChangeItem = (e) => {
+    const updateChange = wheelSettings.segments.map((item, index) => {
+      if (e.target.id == index) {
+        return {
+          ...item,
+          text: e.target.value,
+        };
+      } else {
+        return item;
+      }
+    });
+
+    setWheelSettings({
+      ...wheelSettings,
+      segments: updateChange,
+    });
+
+    /*
+    setWheelSettings((draft) => {
+      const itemIndex = draft.wheelSettings.segments.findIndex((item) => item.id === itemId);
+      if (itemIndex !== -1) {
+        draft.wheelSettings.segments[itemIndex].value = newValue;
+      }
+    });
+
+    */
   };
 
   return (
@@ -467,6 +447,7 @@ const SpinWheelContainer = (props) => {
                 theWheel.startAnimation();
               }}
               handleDeleteItem={handleDeleteItem}
+              handleChangeItem={(e) => handleChangeItem(e)}
               handleDragEnd={handleDragEnd}
               wheelSettings={wheelSettings}
               updateWheelSettings={(value) =>

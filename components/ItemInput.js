@@ -5,8 +5,11 @@ const ItemInput = (props) => {
   const colorList = ["#52AB84", "#DA6B75", " #47B2C2", "#DA9457", "#DEC85E", "#325D89", "#6A4A80"];
 
   const handleClick = (e) => {
+    const sortArrayById = [...props.wheelSettings.segments].sort((a, b) => parseInt(a.id) > parseInt(b.id));
+    const createNewId = parseInt(sortArrayById.at(-1).id) + 1;
+
     if (itemInputValue !== "") {
-      e.updateWheelSettings({ fillStyle: colorList[props.wheelSettings.segments.length % 7], text: itemInputValue });
+      e.updateWheelSettings({ id: createNewId.toString(), fillStyle: colorList[props.wheelSettings.segments.length % 7], text: itemInputValue });
       setItemInputValue("");
     }
   };
