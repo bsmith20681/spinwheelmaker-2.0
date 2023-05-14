@@ -190,9 +190,13 @@ const SpinWheelContainer = (props) => {
     }));
   };
 
-  const handleDeleteItem = (e, index) => {
+  const handleDeleteItem = (e) => {
+    const findItemToDelete = wheelSettings.segments.findIndex((object) => {
+      return object.id === e.currentTarget.id;
+    });
+
     const updateChange = wheelSettings.segments.filter((item, index) => {
-      return e.target.id != index;
+      return findItemToDelete != index;
     });
 
     setWheelSettings((prevState) => ({
