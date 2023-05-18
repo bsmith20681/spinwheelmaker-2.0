@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DotsIcon from "../public/images/dotsIcon.png";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
-const Item = ({ wheelSettings, handleDragEnd, handleDeleteItem, handleChangeItem }) => {
+const Item = ({ wheelSettings, handleDragEnd, handleDeleteItem, handleWeightInput, handleChangeItem }) => {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -26,6 +26,7 @@ const Item = ({ wheelSettings, handleDragEnd, handleDeleteItem, handleChangeItem
                       {(provided) => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="flex items-center justify-between">
                           <div className="my-3 flex w-full items-center rounded-md bg-blue-100 p-2">
+                            <input type="number" id={index} onFocus={(e) => e.target.select()} value={item.weightValue} onChange={(e) => handleWeightInput(e)} className="w-7 rounded-md text-center" min={1} />
                             <Image src={DotsIcon} alt="dots" />
                             <input className="max-w-lg rounded-sm bg-blue-100 indent-1 transition hover:cursor-pointer hover:bg-blue-200 focus:bg-white" size={item.text.length || 1} id={index} value={item.text} onChange={(e) => handleChangeItem(e, index)} />
                           </div>

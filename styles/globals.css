@@ -10,6 +10,13 @@
   }
 }
 
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
+}
+
 #try-it-out {
   position: absolute;
   z-index: 1;

@@ -4,6 +4,8 @@ import SpinWheelContainer from "../components/SpinWheelContainer";
 import { nanoid } from "nanoid";
 import Script from "next/script";
 
+import { winWheelPercentToDegrees } from "../actions/winWheelPercentToDegrees";
+
 const Create = () => {
   return (
     <Layout isAuth={false}>
@@ -22,13 +24,13 @@ const Create = () => {
       </Head>
       <SpinWheelContainer
         segments={[
-          { id: "0", fillStyle: "#52AB84", text: "Pizza" },
-          { id: "1", fillStyle: "#D96B75", text: "Burger" },
-          { id: "2", fillStyle: "#47B2C2", text: "Tacos" },
-          { id: "3", fillStyle: "#DA9457", text: "Fries" },
-          { id: "4", fillStyle: "#DEC85E", text: "Pasta" },
-          { id: "5", fillStyle: "#325D89", text: "Hot Dogs" },
-          { id: "6", fillStyle: "#6A4A80", text: "Fried Chicken" },
+          { id: "0", fillStyle: "#52AB84", weightValue: 1, size: 51.42, text: "Pizza" },
+          { id: "1", fillStyle: "#D96B75", weightValue: 1, size: 51.42, text: "Burger" },
+          { id: "2", fillStyle: "#47B2C2", weightValue: 1, size: 51.42, text: "Tacos" },
+          { id: "3", fillStyle: "#DA9457", weightValue: 1, size: 51.42, text: "Fries" },
+          { id: "4", fillStyle: "#DEC85E", weightValue: 1, size: 51.42, text: "Pasta" },
+          { id: "5", fillStyle: "#325D89", weightValue: 1, size: 51.42, text: "Hot Dogs" },
+          { id: "6", fillStyle: "#6A4A80", weightValue: 1, size: 51.42, text: "Fried Chicken" },
         ]}
         title="What to eat for Lunch?"
         shortID={nanoid(11)}

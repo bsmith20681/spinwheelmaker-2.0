@@ -3,9 +3,6 @@ import { useEffect, useState, useContext, useCallback } from "react";
 import { useImmer } from "use-immer";
 import { UserContext } from "../context/UserContext";
 import Link from "next/link";
-import Script from "next/script";
-
-import Image from "next/image";
 
 import ContentEditable from "react-contenteditable";
 import ItemContainer from "../components/ItemContainer";
@@ -195,8 +192,17 @@ const SpinWheelContainer = (props) => {
       return object.id === e.currentTarget.id;
     });
 
-    const updateChange = wheelSettings.segments.filter((item, index) => {
+    const deleteItem = wheelSettings.segments.filter((item, index) => {
       return findItemToDelete != index;
+    });
+
+    const totalWeightValue = deleteItem.reduce((n, { weightValue }) => n + +weightValue, 0);
+
+    const updateChange = deleteItem.map((item, index) => {
+      return {
+        ...item,
+        size: (360 / totalWeightValue) * item.weightValue,
+      };
     });
 
     setWheelSettings((prevState) => ({
@@ -221,16 +227,35 @@ const SpinWheelContainer = (props) => {
       ...wheelSettings,
       segments: updateChange,
     });
+  };
 
-    /*
-    setWheelSettings((draft) => {
-      const itemIndex = draft.wheelSettings.segments.findIndex((item) => item.id === itemId);
-      if (itemIndex !== -1) {
-        draft.wheelSettings.segments[itemIndex].value = newValue;
+  const handleWeightInput = (e) => {
+    const prevInputs = [...wheelSettings.segments];
+
+    //allows for input to be empty while still showing the value of 1
+    const value = e.target.value === "" ? 1 : +e.target.value;
+
+    const totalWeightValue = wheelSettings.segments.reduce((n, { weightValue }) => n + +weightValue, 0) + (value - prevInputs[e.target.id].weightValue);
+
+    const updateChange = wheelSettings.segments.map((item, index) => {
+      if (e.target.id == index) {
+        return {
+          ...item,
+          weightValue: e.target.value,
+          size: (360 / totalWeightValue) * value,
+        };
+      } else {
+        return {
+          ...item,
+          size: (360 / totalWeightValue) * item.weightValue,
+        };
       }
     });
 
-    */
+    setWheelSettings({
+      ...wheelSettings,
+      segments: updateChange,
+    });
   };
 
   return (
@@ -452,6 +477,7 @@ const SpinWheelContainer = (props) => {
               }}
               handleDeleteItem={handleDeleteItem}
               handleChangeItem={(e) => handleChangeItem(e)}
+              handleWeightInput={(e) => handleWeightInput(e)}
               handleDragEnd={handleDragEnd}
               wheelSettings={wheelSettings}
               updateWheelSettings={(value) =>
