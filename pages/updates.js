@@ -21,6 +21,14 @@ const Updates = () => {
       <div className="container">
         <div className="mx-auto my-12 max-w-3xl">
           <p className="my-3 text-xl font-semibold">Recent Updates</p>
+          <div className="my-3">
+            <p className="font-semibold">✅ May 29th, 2023</p>
+            <ul className="list-disc pl-8">
+              <li>Added ability to edit text in input fields</li>
+              <li>Added ability to add weighted fields</li>
+              <li>Fixed Delete input bug</li>
+            </ul>
+          </div>
 
           <div className="my-3">
             <p className="font-semibold">✅ March 21st, 2023</p>

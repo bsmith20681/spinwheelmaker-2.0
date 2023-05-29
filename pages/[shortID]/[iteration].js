@@ -23,11 +23,12 @@ const ViewWheel = () => {
     })
       .then((data) => {
         //older entries may not have the size and weightValue property this checks for that and places it in on older entries
-
         const segmentsFromDB = data.data.data[0].iteration.at(-1).segments;
+
         const segmentsHasWeightValue = segmentsFromDB.some((item) => {
-          item.weightValue && item.size;
+          return item.hasOwnProperty("weightValue") && item.hasOwnProperty("size");
         });
+
         if (segmentsHasWeightValue) {
           setSegments(segmentsFromDB);
           setResponse(data.data.data[0]);
