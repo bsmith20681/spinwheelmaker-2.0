@@ -1,36 +1,38 @@
 import { useState } from "react";
 
-const ItemInput = (props) => {
+const ItemInput = ({ wheelSettings, updateWheelSettings, handleWeightInput }) => {
   const [itemInputValue, setItemInputValue] = useState("");
   const colorList = ["#52AB84", "#DA6B75", " #47B2C2", "#DA9457", "#DEC85E", "#325D89", "#6A4A80"];
 
   const handleClick = (e) => {
-    const sortArrayById = [...props.wheelSettings.segments].sort((a, b) => parseInt(a.id) > parseInt(b.id));
+    const sortArrayById = [...wheelSettings.segments].sort((a, b) => parseInt(a.id) > parseInt(b.id));
     const createNewId = parseInt(sortArrayById.at(-1).id) + 1;
 
     if (itemInputValue !== "") {
-      e.updateWheelSettings({ id: createNewId.toString(), fillStyle: colorList[props.wheelSettings.segments.length % 7], text: itemInputValue });
+      updateWheelSettings({ id: createNewId.toString(), fillStyle: colorList[wheelSettings.segments.length % 7], weightValue: 1, size: 360 / wheelSettings.segments.length, text: itemInputValue });
+      //handleWeightInput();
+      console.log(e);
       setItemInputValue("");
     }
   };
 
-  const handleKeyDown = (e, props) => {
+  const handleKeyDown = (e) => {
     if (e.code === "Enter" && itemInputValue !== "") {
-      handleClick(props);
+      handleClick();
     }
   };
 
   return (
     <div className="flex">
       <input
-        onKeyDown={(e) => handleKeyDown(e, props)}
+        onKeyDown={(e) => handleKeyDown(e)}
         onChange={(e) => setItemInputValue(e.target.value)}
         value={itemInputValue}
         placeholder="Add Item"
         className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 text-sm leading-tight text-gray-700 shadow focus:outline-none"
         type="text"
       />
-      <button onClick={() => handleClick(props)} className="mx-3 whitespace-nowrap rounded bg-blue-500 py-2 px-4 text-sm font-bold text-white hover:bg-blue-700">
+      <button onClick={(e) => handleClick(e)} className="mx-3 whitespace-nowrap rounded bg-blue-500 py-2 px-4 text-sm font-bold text-white hover:bg-blue-700">
         Add Item
       </button>
     </div>

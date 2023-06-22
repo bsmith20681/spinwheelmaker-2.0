@@ -5,7 +5,7 @@ const ItemContainer = ({ updateWheelSettings, wheelSettings, spinTheWheel, handl
   return (
     <div className="flex h-full flex-col justify-between">
       <div>
-        <ItemInput updateWheelSettings={updateWheelSettings} wheelSettings={wheelSettings} />
+        <ItemInput updateWheelSettings={updateWheelSettings} handleWeightInput={handleWeightInput} wheelSettings={wheelSettings} />
         <Item handleDeleteItem={handleDeleteItem} handleWeightInput={handleWeightInput} handleChangeItem={handleChangeItem} handleDragEnd={handleDragEnd} wheelSettings={wheelSettings} />
       </div>
       <button onClick={spinTheWheel} className="my-2 w-full rounded-md bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">

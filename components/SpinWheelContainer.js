@@ -480,12 +480,26 @@ const SpinWheelContainer = (props) => {
               handleWeightInput={(e) => handleWeightInput(e)}
               handleDragEnd={handleDragEnd}
               wheelSettings={wheelSettings}
-              updateWheelSettings={(value) =>
+              updateWheelSettings={(value) => {
+                const addValueToArray = [...wheelSettings.segments, value];
+
+                const totalWeightValue = addValueToArray.reduce((accumulator, currentObject) => {
+                  return accumulator + currentObject.weightValue;
+                }, 0);
+
+                //loop through each item and add it to a new array and then submit that array while updating the size
+                const updateChange = addValueToArray.map((item) => {
+                  return {
+                    ...item,
+                    size: (360 / totalWeightValue) * item.weightValue,
+                  };
+                });
+
                 setWheelSettings((prevState) => ({
                   ...prevState,
-                  segments: [...prevState.segments, value],
-                }))
-              }
+                  segments: updateChange,
+                }));
+              }}
             />
           </div>
         </div>
