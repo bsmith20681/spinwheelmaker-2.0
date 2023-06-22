@@ -1,5 +1,5 @@
 import axios from "axios";
-
+/*
 const ImageUpload = () => {
   const onImageChange = () => {
     axios.post(
@@ -37,3 +37,4 @@ const ImageUpload = () => {
 };
 
 export default ImageUpload;
+*/
